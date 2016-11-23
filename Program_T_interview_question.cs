@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SQLServerDB;
+
 namespace TestDBI
 {
     partial class Program
@@ -196,5 +198,35 @@ namespace TestDBI
             Console.WriteLine("  --DONE: TestDBI_T_interview_question_T5");
         }
 
+
+        List<interview_question> makeList1()
+        {
+            List<interview_question> myList = new List<interview_question>()
+                         {
+                        new  interview_question( "question_1",  "notes_1", 1),
+                        new  interview_question( "question_2",  "notes_2", 2),
+                        new  interview_question( "question_3",  "notes_3", 3),
+                        new  interview_question( "question_4",  "notes_4", 4),
+                        new  interview_question( "question_5",  "notes_5", 5),
+                        new  interview_question( "question_6",  "notes_6", 6),
+                        new  interview_question( "question_7",  "notes_7", 7),
+                    };
+            return myList;
+        }//makeList1
+
+        List<interview_question> makeList2()
+        {
+            List<interview_question> myList = new List<interview_question>()
+                         {
+                        new  interview_question( "question_1",  "notes_1", 1),
+                        new  interview_question( "question_2_A",  "notes_A", 2),
+                        new  interview_question( "question_3",  "notes_3", 3),
+                        new  interview_question( "question_4_B",  "notes_4_B", 4),
+                        new  interview_question( "question_5",  "notes_5", 5),
+                        new  interview_question( "question_6_C",  "notes_6_C", 6),
+                        new  interview_question( "question_7",  "notes_7", 7),
+                    };
+            return myList;
+        }//makeList1
     }
 }
