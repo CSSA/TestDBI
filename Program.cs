@@ -82,7 +82,7 @@ namespace TestDBI
 
             //Initialize the Connection Strings
             Initialize_SQLServer_ConnectionString();
-            Initialize_ADO_Connection_String();
+
 
             bool Done = false;
             do

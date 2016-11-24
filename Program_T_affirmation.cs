@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SQLServerDB;
 
-
 namespace TestDBI
 {
     partial class Program
@@ -16,10 +15,10 @@ namespace TestDBI
             switch (iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_affirmation_Write_to_SQLServer();
+                    TestDBI_T_affirmation_Write_to_DB();
                     break;
                 case 2:
-                    TestDBI_T_affirmation_Read_from_SQLServer();
+                    TestDBI_T_affirmation_Read_from_DB();
                     break;
                 case 3:
                     TestDBI_T_affirmation_T3();
@@ -38,13 +37,13 @@ namespace TestDBI
         }
         //-------------------------------------------------------------------------------------------
         /// <summary>
-        /// TestDBI_T_affirmation_Write_To_SQLServer -- read affirmation table from MSAccess DB via ADODB & write to SQLServer DB
+        /// TestDBI_T_affirmation_Write_to_DB -- write itemlist to DB
         /// </summary>
-        static void TestDBI_T_affirmation_Write_to_SQLServer()
+        static void TestDBI_T_affirmation_Write_to_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_Write_to_SQLServer");
+            Console.WriteLine("  --START: TestDBI_T_affirmation_Write_to_DB");
 
-            SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
+            affirmation_Table myTable = new affirmation_Table();
             myTable.itemList = make_affirmation_list_1();
             int iRowsStart = myTable.itemList.Count;
             myTable.Show();
@@ -71,17 +70,17 @@ namespace TestDBI
             Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
             pause("visually inspect via SSMS?");
 
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Write_To_SQLServer");
-        }//TestDBI_T_affirmation_Write_to_SQLServer
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Write_to_DB");
+        }//TestDBI_T_affirmation_Write_to_DB
 
 
         //-------------------------------------------------------------------------------------------
         /// <summary>
-        /// TestDBI_T_affirmation_Read_from_SQLServer -- read affirmation table from SQLServer DB and write to  MSAccess DB via ADODB
+        /// TestDBI_T_affirmation_Read_from_DB -- read from DB
         /// </summary>
-        static void TestDBI_T_affirmation_Read_from_SQLServer()
+        static void TestDBI_T_affirmation_Read_from_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_Read_From_SQLServer");
+            Console.WriteLine("  --START: TestDBI_T_affirmation_Read_from_DB");
 
             SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
 
@@ -97,8 +96,8 @@ namespace TestDBI
                 Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
             pause();
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Read_from_SQLServer");
-        }//TestDBI_T_affirmation_Read_from_SQLServer
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Read_from_DB");
+        }//TestDBI_T_affirmation_Read_from_DB
 
 
 

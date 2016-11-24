@@ -14,10 +14,10 @@ namespace TestDBI
             switch (iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_improvement_opportunity_ADODB_to_SQLServer();
+                    TestDBI_T_improvement_opportunity_Write_to_DB();
                     break;
                 case 2:
-                    TestDBI_T_improvement_opportunity_SQLServer_to_ADODB();
+                    TestDBI_T_improvement_opportunity_Read_from_DB();
                     break;
                 case 3:
                     TestDBI_T_improvement_opportunity_T3();
@@ -36,26 +36,26 @@ namespace TestDBI
         }
 
 
-        //-------------------------------------------------------------------------------------------NOTE: not really using ADODB anymore
-        static void TestDBI_T_improvement_opportunity_ADODB_to_SQLServer()
+        //-------------------------------------------------------------------------------------------
+        static void TestDBI_T_improvement_opportunity_Write_to_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation__note_ADODB_to_SQLServer");
+            Console.WriteLine("  --START: TestDBI_T_improvement_opportunity_Write_to_DB");
 
             SQLServerDB.improvement_opportunity_Table myTable = new SQLServerDB.improvement_opportunity_Table();
 
         //TBD
 
-            Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_ADODB_to_SQLServer");
+            Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_Write_to_DB");
         }
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_improvement_opportunity_SQLServer_to_ADODB()
+        static void TestDBI_T_improvement_opportunity_Read_from_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_improvement_opportunity_SQLServer_to_ADODB");
+            Console.WriteLine("  --START: TestDBI_T_improvement_opportunity_Read_from_DB");
 
 //tbd
 
-            Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_SQLServer_to_ADODB");
+            Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_Read_from_DB");
         }
 
         //-------------------------------------------------------------------------------------------
