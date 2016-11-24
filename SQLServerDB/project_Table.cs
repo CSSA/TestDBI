@@ -230,10 +230,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_projectId- delete project table records by projectId
+        /// Clear_Database_Table_By_projectId- delete project table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
-        public void SQLServer_Clear_Database_Table_By_projectId(int projectId)
+        public void Clear_Database_Table_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -255,10 +255,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
-        public int SQLServer_CountRows()
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -270,6 +270,14 @@ namespace SQLServerDB
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }
 
-
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
+        }
     }
 }

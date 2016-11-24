@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using SQLServerDB;
 
 namespace TestDBI
 {
@@ -13,10 +14,10 @@ namespace TestDBI
             switch (iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_goal_practice_ADODB_to_SQLServer();
+                    TestDBI_T_goal_practice_Write_to_DB();
                     break;
                 case 2:
-                    TestDBI_T_goal_practice_SQLServer_to_ADODB();
+                    TestDBI_T_goal_practice_Read_from_DB();
                     break;
                 case 3:
                     TestDBI_T_goal_practice_T3();
@@ -36,68 +37,60 @@ namespace TestDBI
 
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_goal_practice_ADODB_to_SQLServer()
+        static void TestDBI_T_goal_practice_Write_to_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation__note_ADODB_to_SQLServer");
+            Console.WriteLine("  --START: TestDBI_T_goal_practice_Write_to_DB");
 
-
-
-
-            SQLServerDB.goal_practice_Table myTable = new SQLServerDB.goal_practice_Table();
-
-            int iRows = myTable.ADODB_CountRows();
-            Console.WriteLine("myTable.ADODB_CountRows = " + iRows.ToString());
-
-            Console.WriteLine("Fill the table in RAM from the ADODB  Database table");
-            myTable.ADODB_ReadItemListFromDatabase();
+            goal_practice_Table myTable = new goal_practice_Table();
+            myTable.itemList = make_goal_practice_list_1();
             myTable.Show();
-
-            pause("  --before clear SQLServer database table. item RAM-based itemList has been filled from MS Access table");
+            int iRowsStart = myTable.itemList.Count;
 
             myTable.Clear_Database_Table();
-            pause("  --after clearing SQLServer database table.  examine the table using SSMS");
+            int iRows1 = myTable.CountRows();
+            if (iRows1 != 0)
+                Console.WriteLine("Error!  iRows1 after Clear_Database_Table() should be 0");
+            else
+                Console.WriteLine("OK.  After Clear_Database_Table()");
 
-
-            Console.WriteLine("Write the table from RAM the SQLServer  Database table");
+            Console.WriteLine("Write the table from RAM to the Database");
             myTable.WriteItemListToDatabase();
-            pause("  --after writing to the SQLServer database table.  examine the table using SSMS");
+
 
             int iRows2 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            if (iRows2 != iRowsStart)
+                Console.WriteLine("Error!  iRows2 after WriteItemListToDatabase() should be " + iRowsStart);
+            else
+                Console.WriteLine("OK. After WriteItemListToDatabase()");
+
+            pause("visually inspect via SSMS?");
+
+            Console.WriteLine("  --DONE: TestDBI_T_goal_practice_Write_to_DB");
+        }//TestDBI_T_goal_practice_Write_to_DB
 
 
-            Console.WriteLine("  --DONE: TestDBI_T_goal_practice_ADODB_to_SQLServer");
-        }
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_goal_practice_SQLServer_to_ADODB()
+        static void TestDBI_T_goal_practice_Read_from_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_goal_practice_SQLServer_to_ADODB");
+            Console.WriteLine("  --START: TestDBI_T_goal_practice_Read_From_DB");
 
-
-
-            SQLServerDB.goal_practice_Table myTable = new SQLServerDB.goal_practice_Table();
-
+            goal_practice_Table myTable = new goal_practice_Table();
             int iRows = myTable.CountRows();
-            Console.WriteLine("myTable.SQLServer_CountRows = " + iRows.ToString());
+            Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("Fill the table in RAM from the SQLServer Database table");
             myTable.ReadItemListFromDatabase();
             myTable.Show();
+            if (myTable.itemList.Count != iRows)
+                Console.WriteLine("Error.  myTable.itemList.Count != myTable.CountRows." + " should be the same ReadItemListFromDatabase ()");
+            else
+                Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            Console.WriteLine("  --before clear ADODB database table");
-            myTable.ADODB_Clear_Database_Table();
+            pause();
 
-            pause("  --after clearing ADODB database table.  examine the table using MSAccess");
-
-
-            Console.WriteLine("Write the table from RAM the ADODB  Database table");
-            myTable.ADODB_WriteItemListToDatabase();
-            pause("  --after writing to the  ADODB database table.  examine the table using MSAccess");
-
-            Console.WriteLine("  --DONE: TestDBI_T_goal_practice_SQLServer_to_ADODB");
-        }
+            Console.WriteLine("  --DONE: TestDBI_T_goal_practice_Read_From_DB");
+        }//TestDBI_T_goal_practice_Read_From_DB
 
         //-------------------------------------------------------------------------------------------
         static void TestDBI_T_goal_practice_T3()
@@ -189,6 +182,21 @@ namespace TestDBI
             Console.WriteLine("  -----   TBD:   do something here??");
             Console.WriteLine("  --DONE: TestDBI_T_goal_practice_T5");
         }
+
+
+
+        static List<goal_practice> make_goal_practice_list_1()
+        {
+            List<goal_practice> myList = new List<goal_practice>()
+            {
+                 //goal_practice(int val_nodeId, int val_processAreaId, int val_projectId, string val_name, bool val_isGoal, bool val_isPractice, string val_rating, bool val_coverage)
+                 new goal_practice(1, 1, 1, "name", true, true, "str_rating", true),
+                 new goal_practice(1, 1, 1, "name", true, true, "str_rating", true)
+
+           };
+            return myList;
+        }//make_affirmation_list_1
+
 
     }
 }

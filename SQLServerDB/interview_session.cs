@@ -62,5 +62,11 @@ namespace SQLServerDB
             this.processArea = val_processArea;
             
         }
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}",
+                ID, sessionId, sessionIndex, sessionName, sessionDurationHours, sessionDurationMinutes, sessionDuration, specificGoal, specificPractice,
+                genericGoal, genericPractice, processArea);
+        }
     }
 }

@@ -220,7 +220,7 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_projectId - delete affirmation_note table records by projectId
+        /// Clear_Database_Table_By_projectId - delete affirmation_note table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
         public void Clear_Database_Table_By_projectId(int projectId)
@@ -260,6 +260,14 @@ namespace SQLServerDB
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }//CountRows
 
-
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
+        }
     }
 }

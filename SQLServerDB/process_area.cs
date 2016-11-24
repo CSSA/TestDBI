@@ -36,6 +36,7 @@ namespace SQLServerDB
         public process_area(int val_processAreaId, int val_projectID, string val_name, string val_text,
             bool val_active, bool val_hasArtifact, bool val_hasAffirmation, string val_rating, bool val_coverage)
         {
+            this.ID = Unassigned;
             this.processAreaId = val_processAreaId;
             this.projectId = val_projectID;
             this.paName = val_name;
@@ -46,5 +47,11 @@ namespace SQLServerDB
             this.rating = val_rating;
             this.coverage = val_coverage;
         }
+
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5}",
+                 ID, processAreaId, projectId, paName, text, text, active, canContainArtifact, canContainAffirmation, rating, coverage);
+        }//Show
     }
 }

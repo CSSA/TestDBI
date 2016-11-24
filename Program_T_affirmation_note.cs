@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using SQLServerDB;
 
 
@@ -14,13 +16,13 @@ namespace TestDBI
             switch (iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_affirmation_note_ADODB_to_SQLServer();
+                    TestDBI_T_affirmation_note_Write_to_DB();
                     break;
                 case 2:
-                    TestDBI_T_affirmation_note_SQLServer_to_ADODB();
+                    TestDBI_T_affirmation_note_Read_from_DB();
                     break;
                 case 3:
-                    TestDBI_T_affirmation_note_ADODB_to_SQLServer_T3();
+                    TestDBI_T_affirmation_note_T3();
                     break;
                 case 4:
                     TestDBI_T_affirmation_note_T4();
@@ -37,67 +39,67 @@ namespace TestDBI
 
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_affirmation_note_ADODB_to_SQLServer()
+        static void TestDBI_T_affirmation_note_Write_to_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation__note_ADODB_to_SQLServer");
+            Console.WriteLine("  --START: TestDBI_T_affirmation_note_Write_to_DB");
 
             SQLServerDB.affirmation_note_Table myTable = new SQLServerDB.affirmation_note_Table();
-
-            int iRows = myTable.ADODB_CountRows();
-            Console.WriteLine("myTable.ADODB_CountRows = " + iRows.ToString());
-
-            Console.WriteLine("Fill the table in RAM from the ADODB  Database table");
-            myTable.ADODB_ReadItemListFromDatabase();
+            myTable.itemList = make_affirmation_note_list_1();
+            int iRowsStart = myTable.itemList.Count;
             myTable.Show();
- 
-            pause("  --before clear SQLServer database table. item RAM-based itemList has been filled from MS Access table");
-        
+            pause();
+
+            Console.WriteLine("  --before clear SQLServer database table");
+            pause();
             myTable.Clear_Database_Table();
-            pause("  --after clearing SQLServer database table.  examine the table using SSMS");
+            int iRows2 = myTable.CountRows();
+            if (iRows2 != 0)
+                pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
+            else
+                pause("OK.  After Clear_Database_Table()");
 
 
             Console.WriteLine("Write the table from RAM the SQLServer  Database table");
             myTable.WriteItemListToDatabase();
-            pause("  --after writing to the SQLServer database table.  examine the table using SSMS");
+            int iRows3 = myTable.CountRows();
+            if (iRows3 != iRowsStart)
+                pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
+            else
+                pause("OK.  After WriteItemListToDatabase()");
 
-            int iRows2 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
+            pause("visually inspect via SSMS?");
 
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_ADODB_to_SQLServer");
-        }
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_Write_to_DB");
+        }//TestDBI_T_affirmation_note_Write_to_DB
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_affirmation_note_SQLServer_to_ADODB()
+        static void TestDBI_T_affirmation_note_Read_from_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_note_SQLServer_to_ADODB");
+            Console.WriteLine("  --START: TestDBI_T_affirmation_note_Read_from_DB");
 
             SQLServerDB.affirmation_note_Table myTable = new SQLServerDB.affirmation_note_Table();
 
             int iRows = myTable.CountRows();
-            Console.WriteLine("myTable.SQLServer_CountRows = " + iRows.ToString());
+            Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("Fill the table in RAM from the SQLServer Database table");
             myTable.ReadItemListFromDatabase();
             myTable.Show();
+            if (myTable.itemList.Count != iRows)
+                Console.WriteLine("Error.  myTable.itemList.Count != myTable.CountRows." + " should be the same ReadItemListFromDatabase ()");
+            else
+                Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            Console.WriteLine("  --before clear ADODB database table");
-            myTable.ADODB_Clear_Database_Table();
+            pause();
 
-            pause("  --after clearing ADODB database table.  examine the table using MSAccess");
-
-
-            Console.WriteLine("Write the table from RAM the ADODB  Database table");
-            myTable.ADODB_WriteItemListToDatabase();
-            pause("  --after writing to the  ADODB database table.  examine the table using MSAccess");
-
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_SQLServer_to_ADODB");
-        }
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_Read_from_DB");
+        }//TestDBI_T_affirmation_note_Read_from_DB
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_affirmation_note_ADODB_to_SQLServer_T3()
+        static void TestDBI_T_affirmation_note_T3()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_note_ADODB_to_SQLServer_T3");
+            Console.WriteLine("  --START: TestDBI_T_affirmation_note_T3");
 
 
             //Construct myTable in RAM
@@ -155,9 +157,9 @@ namespace TestDBI
             myTable.Clear_Database_Table_By_AffirmationID(4);
             myTable.Clear_Database_Table_By_AffirmationID(6);
             pause("-- AFTER Clear_Database_Table_By_AffirmationID {2,4,6} using SSMS");
-            
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_ADODB_to_SQLServer_T3");
-        }//TestDBI_T_affirmation_note_ADODB_to_SQLServer_T3
+
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_T3");
+        }//TestDBI_T_affirmation_note_T3
 
 
         static void TestDBI_T_affirmation_note_T4()
@@ -173,5 +175,34 @@ namespace TestDBI
             Console.WriteLine("  -----   TBD:   do something here??");
             Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_T5");
         }
+
+
+
+        static List<affirmation_note> make_affirmation_note_list_1()
+        {
+            List<affirmation_note> myList = new List<affirmation_note>()
+                         {
+                          new  affirmation_note(1, "val_notes_1"),
+                          new  affirmation_note(2, "val_notes_2"),
+                          new  affirmation_note(3, "val_notes_3"),
+                          new  affirmation_note(4, "val_notes_4"),
+                          new  affirmation_note(5, "val_notes_5"),
+           };
+            return myList;
+        }//make_affirmation_list_1
+
+
+        static List<affirmation_note> make_affirmation_note_list_2()
+        {
+            List<affirmation_note> myList = new List<affirmation_note>()
+                       {
+                       new  affirmation_note(1, "val_notes_1-Rev-A"),
+                       new  affirmation_note(2, "val_notes_2-Rev-A"),
+                       new  affirmation_note(3, "val_notes_3-Rev-A"),
+                       new  affirmation_note(4, "val_notes_4-Rev-A"),
+                       new  affirmation_note(5, "val_notes_5-Rev-A"),            };
+            return myList;
+        }//make_affirmation_list_2
+
     }
 }

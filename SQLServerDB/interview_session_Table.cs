@@ -270,7 +270,6 @@ namespace SQLServerDB
             myConnection.Close();
         }//UpdateItemToDatabase
 
-
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// Clear_Database_Table - delete all records from the table "interview_session"  database
@@ -278,17 +277,20 @@ namespace SQLServerDB
         /// </summary>
         public void Clear_Database_Table()
         {
-            string strCommand = "DELETE * FROM " + theTable;
+            if (CountRows() == 0)
+                return;
+
+            string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog("ExecuteSqlNonQuery returned: FALSE; in interview_session_Table.cs:Clear_Database_Table.ExecuteSqlNonQuery()");
         }
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_sessionId- delete interview_session table records by sessionId
+        /// Clear_Database_Table_By_sessionId- delete interview_session table records by sessionId
         /// </summary>
         /// <param name="sessionId"></param>
-        public void SQLServer_Clear_Database_Table_By_sessionId(int sessionId)
+        public void Clear_Database_Table_By_sessionId(int sessionId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -310,10 +312,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
-        /// <returns></returns>
-        public int SQLServer_CountRows()
+        /// <returns>int </returns>
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -323,6 +325,16 @@ namespace SQLServerDB
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
+        }
+
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
         }
     }
 }

@@ -30,5 +30,11 @@ namespace SQLServerDB
             this.mappingId = val_mappingId;
             this.notes = val_notes;
         }
+
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5}",
+                 ID, mappingId, notes);
+        }//Show
     }
 }

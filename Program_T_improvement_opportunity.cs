@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SQLServerDB;
 
 namespace TestDBI
 {
@@ -38,34 +36,14 @@ namespace TestDBI
         }
 
 
-        //-------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------NOTE: not really using ADODB anymore
         static void TestDBI_T_improvement_opportunity_ADODB_to_SQLServer()
         {
             Console.WriteLine("  --START: TestDBI_T_affirmation__note_ADODB_to_SQLServer");
 
-
             SQLServerDB.improvement_opportunity_Table myTable = new SQLServerDB.improvement_opportunity_Table();
 
-            int iRows = myTable.ADODB_CountRows();
-            Console.WriteLine("myTable.ADODB_CountRows = " + iRows.ToString());
-
-            Console.WriteLine("Fill the table in RAM from the ADODB  Database table");
-            myTable.ADODB_ReadItemListFromDatabase();
-            myTable.Show();
-
-            pause("  --before clear SQLServer database table. item RAM-based itemList has been filled from MS Access table");
-
-            myTable.Clear_Database_Table();
-            pause("  --after clearing SQLServer database table.  examine the table using SSMS");
-
-
-            Console.WriteLine("Write the table from RAM the SQLServer  Database table");
-            myTable.WriteItemListToDatabase();
-            pause("  --after writing to the SQLServer database table.  examine the table using SSMS");
-
-            int iRows2 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+        //TBD
 
             Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_ADODB_to_SQLServer");
         }
@@ -75,25 +53,7 @@ namespace TestDBI
         {
             Console.WriteLine("  --START: TestDBI_T_improvement_opportunity_SQLServer_to_ADODB");
 
-
-            SQLServerDB.improvement_opportunity_Table myTable = new SQLServerDB.improvement_opportunity_Table();
-
-            int iRows = myTable.CountRows();
-            Console.WriteLine("myTable.SQLServer_CountRows = " + iRows.ToString());
-
-            Console.WriteLine("Fill the table in RAM from the SQLServer Database table");
-            myTable.ReadItemListFromDatabase();
-            myTable.Show();
-
-            Console.WriteLine("  --before clear ADODB database table");
-            myTable.ADODB_Clear_Database_Table();
-
-            pause("  --after clearing ADODB database table.  examine the table using MSAccess");
-
-
-            Console.WriteLine("Write the table from RAM the ADODB  Database table");
-            myTable.ADODB_WriteItemListToDatabase();
-            pause("  --after writing to the  ADODB database table.  examine the table using MSAccess");
+//tbd
 
             Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_SQLServer_to_ADODB");
         }
@@ -126,18 +86,20 @@ namespace TestDBI
                 myTable.itemList.Add(improvement_opportunityItem);
             }
 
-
+#if __COMMENT_
             //Count SQLServerDB affirmation table rows before clearing
             int iRows = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("  --before clear SQLServer database table");
             pause();
+#endif
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            if (iRows2 != 0)
+                Console.WriteLine("ERROR! myTable.CountRows = " + iRows2.ToString() + "; should be zero(0)");
+   
 
             myTable.WriteItemListToDatabase();
             Console.WriteLine("after writing to SQLServerDB");
@@ -190,5 +152,29 @@ namespace TestDBI
             Console.WriteLine("  -----   TBD:   do something here??");
             Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_T5");
         }
+
+        static List<improvement_opportunity> make_improvement_opportunity_list_1()
+        {
+            List<improvement_opportunity> ioList = new List<improvement_opportunity>();
+
+            for (int i = 1; i < 10; i++)
+            {
+                SQLServerDB.improvement_opportunity improvement_opportunityItem = new SQLServerDB.improvement_opportunity();
+                improvement_opportunityItem.ID = i;  //actually, a don't care; it will not be stored
+                improvement_opportunityItem.notes = "notes_" + i.ToString();
+                improvement_opportunityItem.specificGoal = "sg_" + i.ToString();
+                improvement_opportunityItem.specificPractice = "sp_" + i.ToString();
+                improvement_opportunityItem.genericGoal = "gg_" + i.ToString();
+                improvement_opportunityItem.genericPractice = "gp_" + i.ToString();
+                improvement_opportunityItem.projectId = i;
+                improvement_opportunityItem.processArea = "process_area_" + i.ToString();
+
+                ioList.Add(improvement_opportunityItem);
+            }//for
+
+            return ioList;
+        }//make_improvement_opportunity_list_1
+
+
     }
 }

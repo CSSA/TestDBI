@@ -294,10 +294,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
-        public int SQLServer_CountRows()
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -311,11 +311,11 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_processArea - count how many rows match the processAre
+        /// CountRows_By_processArea - count how many rows match the processAre
         /// </summary>
         /// <param name="processAre"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_processAre(String processAre)
+        public int CountRows_By_processAre(String processAre)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -332,11 +332,11 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_projectId - count how many rows match the projectId
+        /// CountRows_By_projectId - count how many rows match the projectId
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_projectId(int projectId)
+        public int CountRows_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -349,6 +349,14 @@ namespace SQLServerDB
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }
-
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
+        }
     }
 }

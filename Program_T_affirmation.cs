@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using SQLServerDB;
 
 
 namespace TestDBI
@@ -15,10 +16,10 @@ namespace TestDBI
             switch (iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_affirmation_ADODB_to_SQLServer();
+                    TestDBI_T_affirmation_Write_to_SQLServer();
                     break;
                 case 2:
-                    TestDBI_T_affirmation_SQLServer_to_ADODB();
+                    TestDBI_T_affirmation_Read_from_SQLServer();
                     break;
                 case 3:
                     TestDBI_T_affirmation_T3();
@@ -37,46 +38,50 @@ namespace TestDBI
         }
         //-------------------------------------------------------------------------------------------
         /// <summary>
-        /// TestDBI_T_affirmation_ADODB_to_SQLServer -- read affirmation table from MSAccess DB via ADODB & write to SQLServer DB
+        /// TestDBI_T_affirmation_Write_To_SQLServer -- read affirmation table from MSAccess DB via ADODB & write to SQLServer DB
         /// </summary>
-        static void TestDBI_T_affirmation_ADODB_to_SQLServer()
+        static void TestDBI_T_affirmation_Write_to_SQLServer()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_ADODB_to_SQLServer");
-
+            Console.WriteLine("  --START: TestDBI_T_affirmation_Write_to_SQLServer");
 
             SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
-
-            int iRows = myTable.ADODB_CountRows();
-            Console.WriteLine("myTable.ADODB_CountRows = " + iRows.ToString());
-
-
-            Console.WriteLine("Fill the table in RAM from the ADODB  Database table");
-            myTable.ADODB_ReadItemListFromDatabase();
+            myTable.itemList = make_affirmation_list_1();
+            int iRowsStart = myTable.itemList.Count;
             myTable.Show();
             pause();
 
             Console.WriteLine("  --before clear SQLServer database table");
             pause();
             myTable.Clear_Database_Table();
+            int iRows2 = myTable.CountRows();
+            if (iRows2 != 0)
+                pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
+            else
+                pause("OK.  After Clear_Database_Table()");
 
-            Console.WriteLine("  --after clearing SQLServer database table.  examine the table using SSMS");
-            pause();
 
             Console.WriteLine("Write the table from RAM the SQLServer  Database table");
             myTable.WriteItemListToDatabase();
-            Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
-            pause();
+            int iRows3 = myTable.CountRows();
+            if (iRows3 != iRowsStart)
+                pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
+            else
+                pause("OK.  After WriteItemListToDatabase()");
 
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_ADODB_to_SQLServer");
-        }
+            Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
+            pause("visually inspect via SSMS?");
+
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Write_To_SQLServer");
+        }//TestDBI_T_affirmation_Write_to_SQLServer
+
 
         //-------------------------------------------------------------------------------------------
         /// <summary>
-        /// TestDBI_T_affirmation_SQLServer_to_ADODB -- read affirmation table from SQLServer DB and write to  MSAccess DB via ADODB
+        /// TestDBI_T_affirmation_Read_from_SQLServer -- read affirmation table from SQLServer DB and write to  MSAccess DB via ADODB
         /// </summary>
-        static void TestDBI_T_affirmation_SQLServer_to_ADODB()
+        static void TestDBI_T_affirmation_Read_from_SQLServer()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_SQLServer_to_ADODB");
+            Console.WriteLine("  --START: TestDBI_T_affirmation_Read_From_SQLServer");
 
             SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
 
@@ -86,19 +91,16 @@ namespace TestDBI
             Console.WriteLine("Fill the table in RAM from the SQLServer Database table");
             myTable.ReadItemListFromDatabase();
             myTable.Show();
+            if (myTable.itemList.Count != iRows)
+                Console.WriteLine("Error.  myTable.itemList.Count != myTable.CountRows." + " should be the same ReadItemListFromDatabase ()");
+            else
+                Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            Console.WriteLine("  --before clear ADODB database table");
-            myTable.ADODB_Clear_Database_Table();
-
-            Console.WriteLine("  --after clearing ADODB database table.  examine the table using MSAccess");
             pause();
+            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Read_from_SQLServer");
+        }//TestDBI_T_affirmation_Read_from_SQLServer
 
-            Console.WriteLine("Write the table from RAM the ADODB  Database table");
-            myTable.ADODB_WriteItemListToDatabase();
-            Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using MSAccess");
-            pause();
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_SQLServer_to_ADODB");
-        }
+
 
         /// <summary>
         /// TestDBI_T_affirmation_T3 -  clear the SQLServer affirmation table, write some demo data to SQLServer DB, 
@@ -287,7 +289,6 @@ namespace TestDBI
         }
 
 
-
         static void TestDBI_T_affirmation_T5()
         {
             Console.WriteLine("  --START: TestDBI_T_affirmation_T5");
@@ -295,8 +296,9 @@ namespace TestDBI
             //Construct a brand new myTable in RAM
             SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
 
+            int iRowsStart = 5;
             //put demo records into myTable
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= iRowsStart; i++)
             {
                 SQLServerDB.affirmation affItem = new SQLServerDB.affirmation();
                 affItem.affirmationId = i;
@@ -307,41 +309,69 @@ namespace TestDBI
                 affItem.genericGoal = "aff_genericGoal_" + i.ToString();
                 affItem.genericPractice = "aff_genericPractice_" + i.ToString();
                 affItem.processArea = "aff_processArea_" + i.ToString();
-                affItem.projectId = 404;
+                affItem.projectId = 404;  //setting each item to the same projectID to support find by projectID
 
                 myTable.itemList.Add(affItem);
             }
 
             //Count SQLServerDB affirmation table rows before clearing
-            int iRows = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows.ToString());
-
-            Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            int iRows1 = myTable.CountRows();
+            Console.WriteLine("myTable.CountRows = " + iRows1.ToString());
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            if (iRows2 != 0)
+                Console.WriteLine("Error! iRows2=" + iRows2 + ".  After Clear_Database_Table should be zero");
 
-            foreach (SQLServerDB.affirmation r in myTable.itemList)
-            {
-                myTable.WriteItemToDatabase(r);
-            }
-            Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            myTable.WriteItemListToDatabase();
 
             int iRows3 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            if (iRows3 != iRowsStart)
+                Console.WriteLine("Error! iRows3=" + iRows3 + ".  After WriteItemListToDatabase should be " + iRowsStart);
+            else
+                Console.WriteLine("OK. CountRows=" + iRows3 + " After WriteItemListToDatabase");
 
+           pause("examine table content with SSMS");
 
+            pause("before table query by projectID");    
             int iProjectCount_404 = myTable.CountRows_By_projectId(404);
-            Console.WriteLine("iProjectCount_404=" + iProjectCount_404);
+            if (iProjectCount_404 != iRowsStart)
+                Console.WriteLine("ERROR.  iProjectCount_404=" + iProjectCount_404 + ". Expected " + iRowsStart);
+            else
+                Console.WriteLine("OK. CountRows=" + iProjectCount_404 + " After WriteItemListToDatabase");
             pause();
 
             Console.WriteLine("  --DONE: TestDBI_T_affirmation_T5");
         }
+
+
+        static List<affirmation> make_affirmation_list_1()
+        {
+            List<affirmation> myList = new List<affirmation>()
+            { 
+             new  affirmation( 1, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 1),
+             new  affirmation( 2, "affName_2",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+             new  affirmation( 3, "affName_3",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+             new  affirmation( 4, "affName_4",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+             new  affirmation( 5, "affName_5",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+           };
+            return myList;
+        }//make_affirmation_list_1
+
+
+        static List<affirmation> make_affirmation_list_2()
+        {
+            List<affirmation> myList = new List<affirmation>()
+           {
+           new  affirmation( 1, "affName_1",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 1),
+           new  affirmation( 2, "affName_2",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+           new  affirmation( 3, "affName_3",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+           new  affirmation( 4, "affName_4",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+           new  affirmation( 5, "affName_5",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+
+           };
+            return myList;
+        }//make_affirmation_list_2
 
     }
 }

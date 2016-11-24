@@ -400,7 +400,15 @@ namespace SQLServerDB
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }//CountRows
 
-
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
+        }
 
     }
 }

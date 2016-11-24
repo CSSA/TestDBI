@@ -55,7 +55,7 @@ namespace TestDBI
         {
             try
             {
-                Console.WriteLine("Choose: 1=ADODB to SQLServer,  2=SQLServer to ADODB, 3=T3, 4=T4, 5=T5");
+                Console.WriteLine("Choose: 1=Write_to_DB,  2=Read_from_DB, 3=T3, 4=T4, 5=T5");
                 Console.WriteLine("Choose: -1=QUIT");
 
                 string s = Console.ReadLine();
@@ -80,12 +80,9 @@ namespace TestDBI
             Console.WriteLine("                       -- OR ");
             Console.WriteLine("                       -- Read SQLServer Database & write to MS Access Database");
 
-
-
             //Initialize the Connection Strings
-            SQLServerDB.Connection_String.Initialize_SQLServer_ConnectionString();
-            SQLServerDB.Connection_String.Initialize_ADO_Connection_String();
-
+            Initialize_SQLServer_ConnectionString();
+            Initialize_ADO_Connection_String();
 
             bool Done = false;
             do
@@ -121,11 +118,6 @@ namespace TestDBI
         }// static void Main
 
 
-
-
-
-
-        static void TestDBI_T_interview_session() { }
 
 
 

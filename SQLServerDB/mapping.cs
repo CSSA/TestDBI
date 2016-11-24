@@ -51,5 +51,11 @@ namespace SQLServerDB
             this.projectId = Unassigned;
             this.itemChecked = val_upForDeletion;
         }
+
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5}",
+                 ID, mappingId, mappingName, mappingPath, mappingType, processArea, goal, practice, projectId, itemChecked);
+        }//Show
     }
 }

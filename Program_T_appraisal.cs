@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
+using SQLServerDB;
 
 namespace TestDBI
 {
@@ -13,10 +15,10 @@ namespace TestDBI
             switch (iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_appraisal_ADODB_to_SQLServer();
+                    TestDBI_T_appraisal_write_to_DB();
                     break;
                 case 2:
-                    TestDBI_T_appraisal_SQLServer_to_ADODB();
+                    TestDBI_T_appraisal_read_from_DB();
                     break;
                 case 3:
                     TestDBI_T_appraisal_T3();
@@ -36,64 +38,26 @@ namespace TestDBI
 
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_appraisal_ADODB_to_SQLServer()
+        static void TestDBI_T_appraisal_write_to_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation__note_ADODB_to_SQLServer");
-
+            Console.WriteLine("  --START: TestDBI_T_appraisal_write_to_DB");
 
             SQLServerDB.appraisal_Table myTable = new SQLServerDB.appraisal_Table();
+         
 
-            int iRows = myTable.ADODB_CountRows();
-            Console.WriteLine("myTable.ADODB_CountRows = " + iRows.ToString());
-
-            Console.WriteLine("Fill the table in RAM from the ADODB  Database table");
-            myTable.ADODB_ReadItemListFromDatabase();
-            myTable.Show();
-
-            pause("  --before clear SQLServer database table. item RAM-based itemList has been filled from MS Access table");
-
-            myTable.Clear_Database_Table();
-            pause("  --after clearing SQLServer database table.  examine the table using SSMS");
-
-
-            Console.WriteLine("Write the table from RAM the SQLServer  Database table");
-            myTable.WriteItemListToDatabase();
-            pause("  --after writing to the SQLServer database table.  examine the table using SSMS");
-
-            int iRows2 = myTable.CountRows();
-            Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
-
-            Console.WriteLine("  --DONE: TestDBI_T_appraisal_ADODB_to_SQLServer");
-        }
+            Console.WriteLine("  --DONE: TestDBI_T_appraisal_write_to_DB");
+        }//TestDBI_T_appraisal_write_to_DB
 
         //-------------------------------------------------------------------------------------------
-        static void TestDBI_T_appraisal_SQLServer_to_ADODB()
+        static void TestDBI_T_appraisal_read_from_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_appraisal_SQLServer_to_ADODB");
-
-
+            Console.WriteLine("  --START: TestDBI_T_appraisal_read_from_DB");
             SQLServerDB.appraisal_Table myTable = new SQLServerDB.appraisal_Table();
 
-            int iRows = myTable.CountRows();
-            Console.WriteLine("myTable.SQLServer_CountRows = " + iRows.ToString());
-
-            Console.WriteLine("Fill the table in RAM from the SQLServer Database table");
-            myTable.ReadItemListFromDatabase();
-            myTable.Show();
-
-            Console.WriteLine("  --before clear ADODB database table");
-            myTable.ADODB_Clear_Database_Table();
-
-            pause("  --after clearing ADODB database table.  examine the table using MSAccess");
 
 
-            Console.WriteLine("Write the table from RAM the ADODB  Database table");
-            myTable.ADODB_WriteItemListToDatabase();
-            pause("  --after writing to the  ADODB database table.  examine the table using MSAccess");
-
-            Console.WriteLine("  --DONE: TestDBI_T_appraisal_SQLServer_to_ADODB");
-        }
+            Console.WriteLine("  --DONE: TestDBI_T_appraisal_read_from_DB");
+        }//TestDBI_T_appraisal_read_from_DB
 
         //-------------------------------------------------------------------------------------------
         static void TestDBI_T_appraisal_T3()
@@ -150,11 +114,11 @@ namespace TestDBI
                 SQLServerDB.appraisal appraisalItem = new SQLServerDB.appraisal();
                 appraisalItem.ID = i;  //actually, a don't care; it will not be stored
                 appraisalItem.AppraisalName = "Name_" + i.ToString();
-                appraisalItem.Creator = "Creator_" + i.ToString() + "_REV-A" ;  //modify the text!
+                appraisalItem.Creator = "Creator_" + i.ToString() + "_REV-A";  //modify the text!
                 appraisalItem.MaturityLevel = i + 100;                //A valid maturity level is not really needed.  Test only demonstrates storing/retreiving integers.
                 appraisalItem.Projects = "Projects_" + i.ToString() + "_REV-A";       //modify the text!
-                appraisalItem.SAMSelected = Convert.ToBoolean( 1 + (i % 2)  ); // Alternate between true/false
-                appraisalItem.SSDSelected = Convert.ToBoolean( 1 +  (i % 2) ); // Alternate between true/false
+                appraisalItem.SAMSelected = Convert.ToBoolean(1 + (i % 2)); // Alternate between true/false
+                appraisalItem.SSDSelected = Convert.ToBoolean(1 + (i % 2)); // Alternate between true/false
 
                 myTable.itemList.Add(appraisalItem);
             }
@@ -171,7 +135,7 @@ namespace TestDBI
 
             myTable.UpdateItemListToDatabase();
             pause("-- AFTER the update, examine the appraisal Table using SSMS");
-             
+
 
             Console.WriteLine("  --DONE: TestDBI_T_appraisal_T3");
         }//TestDBI_T_appraisal_T3
@@ -191,5 +155,45 @@ namespace TestDBI
             Console.WriteLine("  --DONE: TestDBI_T_appraisal_T5");
         }
 
+
+
+        static List<appraisal> make_appraisal_list_1()
+        {
+            const int iML = 1;
+            const int projNum = 1;
+            const bool bsamSelectedT = true;
+            const bool bsamSelectedF = false;
+            const bool bssdSelectedT = true;
+            const bool bssdSelectedF = false;
+
+            List<appraisal> myList = new List<appraisal>()
+            {
+            new appraisal("appraisalName_1", "s_creator_1", iML, projNum, "projects_1", bsamSelectedT, bssdSelectedT),
+           new appraisal("appraisalName_2", "s_creator_2", iML, projNum, "projects_2", bsamSelectedF, bssdSelectedF),
+           new appraisal("appraisalName_3", "s_creator_3", iML, projNum, "projects_3", bsamSelectedT, bssdSelectedT),
+           new appraisal("appraisalName_4", "s_creator_4", iML, projNum, "projects_4", bsamSelectedF, bssdSelectedF)
+        };
+            return myList;
+        }//make_affirmation_list_1
+
+
+        static List<appraisal> make_appraisal_list_2()
+        {
+            const int iML = 1;
+            const int projNum = 1;
+            const bool bsamSelectedT = true;
+            const bool bsamSelectedF = false;
+            const bool bssdSelectedT = true;
+            const bool bssdSelectedF = false;
+
+            List<appraisal> myList = new List<appraisal>()
+           {
+            new appraisal("appraisalName_1", "s_creator_1", iML, projNum, "projects_1", bsamSelectedT, bssdSelectedT),
+           new appraisal("appraisalName_2", "s_creator_2", iML, projNum, "projects_2", bsamSelectedF, bssdSelectedF),
+           new appraisal("appraisalName_3", "s_creator_3", iML, projNum, "projects_3", bsamSelectedT, bssdSelectedT),
+           new appraisal("appraisalName_4", "s_creator_4", iML, projNum, "projects_4", bsamSelectedF, bssdSelectedF)
+        };
+            return myList;
+        }//make_affirmation_list_2
     }
 }

@@ -318,10 +318,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_processArea- delete affirmation table records by processArea
+        /// Clear_Database_Table_By_processArea- delete affirmation table records by processArea
         /// </summary>
         /// <param name="paName"></param>
-        public void SQLServer_Clear_Database_Table_By_processArea(String paName)
+        public void Clear_Database_Table_By_processArea(String paName)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -339,7 +339,7 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_processArea
 
 
         //---------------------------------------------------------------------------------------------------------------
@@ -347,7 +347,7 @@ namespace SQLServerDB
         /// SQLServer_CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
-        public int SQLServer_CountRows()
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -357,6 +357,16 @@ namespace SQLServerDB
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
+        }//SQLServer_CountRows
+
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
         }
     }
 }

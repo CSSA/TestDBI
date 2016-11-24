@@ -34,5 +34,10 @@ namespace SQLServerDB
             this.standardProcess = val_standardProcess;
         }
 
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5}",
+                 projectId, projectIndex, projectName, projectName, creator, standardProcess);
+        }//Show
     }
 }
