@@ -214,9 +214,9 @@ namespace SQLServerDB
 
             //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
             string strQuery = "INSERT INTO  " + theTable +
-                 " (notes,  specificGoal, specificPractice, genericGoal, genericPractice, projectId, processArea,) " +
+                 " (notes,  specificGoal, specificPractice, genericGoal, genericPractice, projectId, processArea) " +
                 " VALUES "  +
-                " ( @notes,  @specificGoal, @specificPractice, @genericGoal, @genericPractice, @projectId, @processArea,);";
+                " ( @notes,  @specificGoal, @specificPractice, @genericGoal, @genericPractice, @projectId, @processArea);";
 
             SqlCommand myCommand = new SqlCommand(strQuery, myConnection);
 
@@ -309,6 +309,9 @@ namespace SQLServerDB
         /// </summary>
         public void Clear_Database_Table()
         {
+            if (CountRows() == 0)
+                return;
+
             string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog(" ExecuteSqlNonQuery returned: FALSE; in improvement_opportunity_Table.cs:Clear_Database_Table. ExecuteSqlNonQuery");
