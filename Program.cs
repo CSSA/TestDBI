@@ -17,7 +17,7 @@ namespace TestDBI
         /// return the integer associated with the selected menu item.
         /// </summary>
         /// <returns></returns>
-        static int iMenuSelection()
+        public static int iMenuSelection()
         {
             try
             {
@@ -51,7 +51,7 @@ namespace TestDBI
 
 
         //---------------------------------------------
-        static int iSubMenuSelection()
+        public static int iSubMenuSelection()
         {
             try
             {
@@ -91,21 +91,21 @@ namespace TestDBI
                 {
                     //DBI :== Database Interface
                     //TestDBI :== Test Database Interface
-                    case 1: TestDBI_T_affirmation(); break;
-                    case 2: TestDBI_T_affirmation_note(); break;
-                    case 3: TestDBI_T_appraisal(); break;
-                    case 4: TestDBI_T_goal_practice(); break;
-                    case 5: TestDBI_T_improvement_opportunity(); break;
-                    case 6: TestDBI_T_interview_question(); break;
-                    case 7: TestDBI_T_interview_session(); break;
-                    case 8: TestDBI_T_mapping(); break;
-                    case 9: TestDBI_T_mapping_note(); break;
-                    case 10: TestDBI_T_process_area(); break;
-                    case 11: TestDBI_T_project(); break;
-                    case 12: TestDBI_T_strength(); break;
-                    case 13: TestDBI_T_team_note(); break;
-                    case 14: TestDBI_T_user(); break;
-                    case 15: TestDBI_T_weakness(); break;
+                    case 1: TestDBI_affirmation.SelectTest(); break;
+                    case 2: TestDBI_affirmation_note.SelectTest(); break;
+                    case 3: TestDBI_appraisal.SelectTest(); break;
+                    case 4: TestDBI_goal_practice.SelectTest(); break;
+                    case 5: TestDBI_improvement_opportunity.SelectTest(); break;
+                    case 6: TestDBI_interview_question.SelectTest(); break;
+                    case 7: TestDBI_interview_session.SelectTest(); break;
+                    case 8: TestDBI_mapping.SelectTest(); break;
+                    case 9: TestDBI_mapping_note.SelectTest(); break;
+                    case 10: TestDBI_process_area.SelectTest(); break;
+                    case 11: TestDBI_project.SelectTest(); break;
+                    case 12: TestDBI_strength.SelectTest(); break;
+                    case 13: TestDBI_team_note.SelectTest(); break;
+                    case 14: TestDBI_user.SelectTest(); break;
+                    case 15: TestDBI_weakness.SelectTest(); break;
                     case -1: Done = true; break;
 
                     default:
@@ -114,53 +114,15 @@ namespace TestDBI
             } while (Done == false);
 
             Console.WriteLine("DONE: Main() -- Console Application SQLServer Database Admin");
-            pause();
+            Util.pause();
         }// static void Main
 
 
 
-
-
-        static void TestDBI_T_mapping() { }
-
-
-
-        static void TestDBI_T_mapping_note() { }
-
-
-        static void TestDBI_T_process_area() { }
+   
 
 
 
-        static void TestDBI_T_project() { }
-
-
-
-        static void TestDBI_T_strength() { }
-
-
-        static void TestDBI_T_team_note() { }
-
-
-
-        static void TestDBI_T_user() { }
-
-
-
-        static void TestDBI_T_weakness() { }
-
-
-        //----------------------------------------------------------------------------------
-        public static void pause()
-        {
-            Console.WriteLine("pausing...");
-            Console.ReadKey();
-        }//void pause()
-        public static void pause(String msg)
-        {
-            Console.WriteLine(msg);
-            Console.WriteLine("pausing...");
-            Console.ReadKey();
-        }//void pause()
+       
     }
 }
