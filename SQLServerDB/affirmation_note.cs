@@ -31,6 +31,22 @@ namespace SQLServerDB
             this.notes = val_notes;
         }
 
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(affirmation_note other)
+        {
+            return (
+            (this.affirmationId == other.affirmationId) &&
+            (this.notes == other.notes)
+            );
+        }//Equals
+
+
         //----------------------------------------------------------------------------------
         public void Show()
         {

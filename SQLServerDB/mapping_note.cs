@@ -30,6 +30,20 @@ namespace SQLServerDB
             this.mappingId = val_mappingId;
             this.notes = val_notes;
         }
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(mapping_note other)
+        {
+            return (
+            (this.mappingId == other.mappingId) &&
+            (this.notes == other.notes) 
+            );
+        }//Equals
 
         public void Show()
         {

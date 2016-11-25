@@ -33,6 +33,23 @@ namespace SQLServerDB
             this.creator = val_creator;
             this.standardProcess = val_standardProcess;
         }
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(project other)
+        {
+            return (
+            (this.projectId == other.projectId) &&
+            (this.projectIndex == other.projectIndex) &&
+            (this.projectName == other.projectName) &&
+            (this.creator == other.creator) &&
+            (this.standardProcess == other.standardProcess) 
+            );
+        }//Equals
 
         public void Show()
         {

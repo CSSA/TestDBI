@@ -48,6 +48,28 @@ namespace SQLServerDB
             this.coverage = val_coverage;
         }//goal_practice
 
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(goal_practice other)
+        {
+            return (
+            (this.nodeId == other.nodeId) &&
+            (this.processAreaId == other.processAreaId) &&
+            (this.projectId == other.projectId) &&
+            (this.name == other.name) &&
+            (this.isGoal == other.isGoal) &&
+            (this.isPractice == other.isPractice) &&
+            (this.isPractice == other.isPractice) &&
+            (this.rating == other.rating) &&
+            (this.coverage == other.coverage)
+            );
+        }//Equals
+
         public void Show()
         {
             Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},",

@@ -47,6 +47,25 @@ namespace SQLServerDB
             this.genericPractice = val_genericPractice;
             this.projectId = val_projectId;
         }
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(improvement_opportunity other)
+        {
+            return (
+            (this.notes == other.notes) &&
+            (this.processArea == other.processArea) &&
+            (this.specificGoal == other.specificGoal) &&
+            (this.specificPractice == other.specificPractice) &&
+            (this.genericGoal == other.genericGoal) &&
+            (this.genericPractice == other.genericPractice) &&
+            (this.projectId == other.projectId) 
+            );
+        }//Equals
 
         public void Show()
         {

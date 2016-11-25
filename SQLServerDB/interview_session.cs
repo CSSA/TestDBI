@@ -62,22 +62,30 @@ namespace SQLServerDB
             this.processArea = val_processArea;
 
         }
-
-        public bool Compare(interview_session other)
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(interview_session other)
         {
             return (
-                 (this.ID == other.ID) &&
             (this.sessionId == other.sessionId) &&
             (this.sessionIndex == other.sessionIndex) &&
+            (this.sessionName == other.sessionName) &&
             (this.sessionDurationHours == other.sessionDurationHours) &&
-          (this.sessionDurationMinutes == other.sessionDurationMinutes) &&
-          (this.specificGoal == other.specificGoal) &&
-          (this.specificPractice == other.specificPractice) &&
-          (this.genericGoal == other.genericGoal) &&
-           (this.genericPractice == other.genericPractice) &&
-           (this.processArea == other.processArea)
-                );
-        }
+            (this.sessionDurationMinutes == other.sessionDurationMinutes) &&
+            (this.sessionDuration == other.sessionDuration) &&
+            (this.specificGoal == other.specificGoal) &&
+            (this.specificPractice == other.specificPractice) &&
+            (this.genericGoal == other.genericGoal) &&
+            (this.genericPractice == other.genericPractice) &&
+            (this.processArea == other.processArea)
+            );
+        }//Equals
+
         public void Show()
         {
             Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}",

@@ -47,6 +47,27 @@ namespace SQLServerDB
             this.rating = val_rating;
             this.coverage = val_coverage;
         }
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(process_area other)
+        {
+            return (
+            (this.processAreaId == other.processAreaId) &&
+            (this.projectId == other.projectId) &&
+            (this.paName == other.paName) &&
+            (this.text == other.text) &&
+            (this.active == other.active) &&
+            (this.canContainArtifact == other.canContainArtifact) &&
+            (this.canContainAffirmation == other.canContainAffirmation) &&
+            (this.rating == other.rating) &&
+            (this.coverage == other.coverage)
+            );
+        }//Equals
 
         public void Show()
         {

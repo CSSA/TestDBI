@@ -53,6 +53,30 @@ namespace SQLServerDB
             this.processArea = val_processArea;
             this.projectId = Unassigned;
         }
+
+
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(affirmation other)
+        {
+            return (
+            (this.affirmationId == other.affirmationId) &&
+            (this.affirmationName == other.affirmationName) &&
+            (this.affirmationType == other.affirmationType) &&
+            (this.specificGoal == other.specificGoal) &&
+            (this.specificPractice == other.specificPractice) &&
+            (this.genericGoal == other.genericGoal) &&
+            (this.genericGoal == other.genericGoal) &&
+            (this.processArea == other.processArea) &&
+            (this.processArea == other.processArea)
+            );
+        }//Equals
+
         //----------------------------------------------------------------------------------
         public void Show()
         {

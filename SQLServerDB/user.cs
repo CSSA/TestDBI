@@ -26,6 +26,23 @@ namespace SQLServerDB
             this.organization = val_organization;
             this.password = val_password;  //WARNING:  This should only be temporary & should not remain in the production system  
         }
+
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(user other)
+        {
+            return (
+            (this.username == other.username) &&
+            (this.organization == other.organization) &&
+            (this.password == other.password) 
+            );
+        }//Equals
+
         //----------------------------------------------------------------------------------
         public void Show()
         {

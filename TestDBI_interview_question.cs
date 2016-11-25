@@ -211,7 +211,7 @@ namespace TestDBI
             int iRows = itemList1.Count;
             for (int i = 0; i < iRows; i++)
             {
-                if (itemList1[i].Compare(itemList2[i]))
+                if (itemList1[i].Equals(itemList2[i]))
                     Console.WriteLine("Equals");
                 else
                     Console.WriteLine("  NOT  Equals");
@@ -248,7 +248,7 @@ namespace TestDBI
             int iRows = itemList1.Count;
             for (int i = 0; i < iRows; i++)
             {
-                if (itemList1[i].Compare(itemList2[i]))
+                if (itemList1[i].Equals(itemList2[i]))
                     Console.WriteLine("Equals");
                 else
                     Console.WriteLine("  NOT  Equals");
@@ -286,7 +286,7 @@ namespace TestDBI
             int iRows = itemList1.Count;
             for (int i = 0; i < iRows; i++)
             {
-                if (itemList1[i].Compare(itemList2[i]))
+                if (itemList1[i].Equals(itemList2[i]))
                     Console.WriteLine("Equals");
                 else
                     Console.WriteLine("  NOT  Equals");
@@ -336,7 +336,7 @@ namespace TestDBI
             int iRows = sorteditemList1.Count;
             for (int i = 1; i <= iRows; i++)
             {
-                if (sorteditemList1[i].Compare(sorteditemList2[i]))
+                if (sorteditemList1[i].Equals(sorteditemList2[i]))
                     Console.WriteLine("Equals");
                 else
                     Console.WriteLine("  NOT  Equals");
@@ -344,7 +344,7 @@ namespace TestDBI
             Console.WriteLine("   use keys");
             foreach (int iKey in sorteditemList1.Keys)
             {
-                if (sorteditemList1[iKey].Compare(sorteditemList2[iKey]))
+                if (sorteditemList1[iKey].Equals(sorteditemList2[iKey]))
                     Console.WriteLine("Equals");
                 else
                     Console.WriteLine("  NOT  Equals");
@@ -402,7 +402,7 @@ namespace TestDBI
             foreach (int iKey in sorteditemList1.Keys)
             {
                 //method Compare directly compares each field individually
-                if (! sorteditemList1[iKey].Compare(sorteditemList2[iKey]))
+                if (! sorteditemList1[iKey].Equals(sorteditemList2[iKey]))
                      return false;
             }
              return true;

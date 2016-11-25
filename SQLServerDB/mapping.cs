@@ -51,6 +51,27 @@ namespace SQLServerDB
             this.projectId = Unassigned;
             this.itemChecked = val_upForDeletion;
         }
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(mapping other)
+        {
+            return (
+            (this.mappingId == other.mappingId) &&
+            (this.mappingName == other.mappingName) &&
+            (this.mappingPath == other.mappingPath) &&
+            (this.mappingType == other.mappingType) &&
+            (this.processArea == other.processArea) &&
+            (this.goal == other.goal) &&
+            (this.practice == other.practice) &&
+            (this.projectId == other.projectId) &&
+            (this.itemChecked == other.itemChecked)
+            );
+        }//Equals
 
         public void Show()
         {

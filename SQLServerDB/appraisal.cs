@@ -38,6 +38,26 @@ namespace SQLServerDB
             this.SSDSelected = val_ssdSelected;
         }
 
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(appraisal other)
+        {
+            return (
+            (this.AppraisalName == other.AppraisalName) &&
+            (this.Creator == other.Creator) &&
+            (this.MaturityLevel == other.MaturityLevel) &&
+            (this.Projects == other.Projects) &&
+            (this.SAMSelected == other.SAMSelected) &&
+            (this.SSDSelected == other.SSDSelected) 
+            );
+        }//Equals
+
+
         public void Show()
         {
             Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5}",

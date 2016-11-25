@@ -31,16 +31,24 @@ namespace SQLServerDB
             this.questionNotes = val_questionNotes;
             this.sessionId = val_sessionId;
         }
-        public bool Compare(interview_question other)
+        // <summary>
+        /// Equals - compare for equivalence of two objects, comparing each field individually, except for the autonumbered ID field
+        /// true = identical content
+        /// false = NOT identical content
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>bool</returns>
+        public bool Equals(interview_question other)
         {
             return (
-                 (this.ID == other.ID) &&
             (this.interviewQuestions == other.interviewQuestions) &&
             (this.questionNotes == other.questionNotes) &&
-            (this.sessionId == other.sessionId)  
-         );
-        }
-        public void Show()
+            (this.sessionId == other.sessionId)
+            );
+        }//Equals
+
+ 
+    public void Show()
         {
             Console.WriteLine("{0,5},{1,5},{2,5},{3,5}",
                 ID, interviewQuestions, questionNotes, sessionId);
