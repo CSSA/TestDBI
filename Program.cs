@@ -55,7 +55,7 @@ namespace TestDBI
         {
             try
             {
-                Console.WriteLine("Choose: 1=Write_to_DB,  2=Read_from_DB, 3=T3, 4=T4, 5=T5");
+                Console.WriteLine("Choose: 1=Write_to_DB,  2=Read_from_DB, 3=T3, 4=T4, 5=T5, 6=T6_Compare");
                 Console.WriteLine("Choose: -1=QUIT");
 
                 string s = Console.ReadLine();

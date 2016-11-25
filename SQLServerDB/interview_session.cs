@@ -60,7 +60,23 @@ namespace SQLServerDB
             this.genericGoal = val_genericGoal;
             this.genericPractice = val_genericPractice;
             this.processArea = val_processArea;
-            
+
+        }
+
+        public bool Compare(interview_session other)
+        {
+            return (
+                 (this.ID == other.ID) &&
+            (this.sessionId == other.sessionId) &&
+            (this.sessionIndex == other.sessionIndex) &&
+            (this.sessionDurationHours == other.sessionDurationHours) &&
+          (this.sessionDurationMinutes == other.sessionDurationMinutes) &&
+          (this.specificGoal == other.specificGoal) &&
+          (this.specificPractice == other.specificPractice) &&
+          (this.genericGoal == other.genericGoal) &&
+           (this.genericPractice == other.genericPractice) &&
+           (this.processArea == other.processArea)
+                );
         }
         public void Show()
         {
