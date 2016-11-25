@@ -294,7 +294,11 @@ namespace SQLServerDB
         }//CountRows
 
 
+#if TESTDBI
         //----------------------------------------------------------------------------------
+        /// <summary>
+        /// Show - if TESTDBI is defined in the build, enable the Show Table feature for Console output
+        /// </summary>
         public void Show()
         {
             Console.WriteLine("Table (" + theTable + ") contents");
@@ -302,7 +306,8 @@ namespace SQLServerDB
             {
                 r.Show();
             }
-        }
+        }//Show
+#endif
 
     }//class appraisal_Table
 }

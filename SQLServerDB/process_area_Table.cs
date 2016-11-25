@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 
-#if __RCC_COMMENT__
-using System.Windows.Forms;
-#endif
+using System.Data; //DataSet
+using System.Data.SqlClient; //SQLConnection, SQLCommand
+
 
 namespace SQLServerDB
 {
@@ -359,7 +355,11 @@ namespace SQLServerDB
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }//SQLServer_CountRows
 
-        //----------------------------------------------------------------------------------
+#if TESTDBI
+       //----------------------------------------------------------------------------------
+        /// <summary>
+        /// Show - if TESTDBI is defined in the build, enable the Show Table feature for Console output
+        /// </summary>
         public void Show()
         {
             Console.WriteLine("Table (" + theTable + ") contents");
@@ -367,6 +367,7 @@ namespace SQLServerDB
             {
                 r.Show();
             }
-        }
+        }//Show
+#endif
     }
 }

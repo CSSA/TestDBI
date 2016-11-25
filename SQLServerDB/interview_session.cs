@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace SQLServerDB
 {
@@ -85,12 +83,17 @@ namespace SQLServerDB
             (this.processArea == other.processArea)
             );
         }//Equals
-
+#if TESTDBI
+        //----------------------------------------------------------------------------------
+        /// <summary>
+        /// Show - if TESTDBI is defined in the build, enable the Show Table feature for Console output
+        /// </summary>
         public void Show()
         {
             Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5},{7,5},{8,5},{9,5},{10,5},{11,5}",
                 ID, sessionId, sessionIndex, sessionName, sessionDurationHours, sessionDurationMinutes, sessionDuration, specificGoal, specificPractice,
                 genericGoal, genericPractice, processArea);
-        }
+        }//Show
+#endif
     }
 }

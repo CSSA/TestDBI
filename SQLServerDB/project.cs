@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace SQLServerDB
 {
@@ -50,11 +48,16 @@ namespace SQLServerDB
             (this.standardProcess == other.standardProcess) 
             );
         }//Equals
-
+#if TESTDBI
+        //----------------------------------------------------------------------------------
+        /// <summary>
+        /// Show - if TESTDBI is defined in the build, enable the Show Table feature for Console output
+        /// </summary>
         public void Show()
         {
             Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5}",
                  projectId, projectIndex, projectName, projectName, creator, standardProcess);
         }//Show
-    }
+    }//Show
+#endif
 }

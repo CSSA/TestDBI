@@ -179,47 +179,6 @@ namespace SQLServerDB
             }
         }//ReadItemListFromDatabase_By_processArea
 
-#if __OBSOLETE__
-        //---------------------------------------------------------------------------------------------------------------
-        ///<summary>
-        /// WriteItemListToDatabase - read all records from this.itemList and write to "theTable"
-        ///</summary>
-        ///<output>List<affirmation> itemList - an ordinary List<> of type affirmation, output to the "theTable" in the database </output>
-        ///<reference> WriteItemToDatabase(affirmation r)</reference>
-        public void WriteItemListToDatabase()
-        {
-            foreach (var r in itemList)
-            {
-                WriteItemToDatabase(r);
-            }
-        }//WriteItemListToDatabase
-
-
-        //---------------------------------------------------------------------------------------------------------------
-        ///<summary>
-        /// WriteItemToDatabase - write one affirmation record to "theTable" in the database
-        ///</summary>
-        ///<param name="affirmation r"></param>
-        ///<output> r - output one object of type affirmation to the "theTable" in the database </output>
-        public void WriteItemToDatabase(affirmation r)
-        {
-            //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
-            string strValues = String.Format("'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}'",
-                 r.affirmationId, r.affirmationName, r.affirmationType, r.specificGoal, r.specificPractice, r.genericGoal,
-                 r.genericPractice, r.processArea, r.projectId);
-
-            string strCommand =
-                "INSERT INTO " + theTable +
-                " (affirmationId, affirmationName, affirmationType,specificGoal,specificPractice,genericGoal, genericPractice,processArea, projectId) " +
-                "Values (" + strValues + ")";
-
-            Console.WriteLine("command: " + strCommand);
-
-            if (!DBUtils.ExecuteSqlNonQuery(strCommand))
-                LogManager.writeToLog("ExecuteSqlNonQuery returned: FALSE in affirmation_Table.cs: WriteItemToDatabase()");
-        }//WriteItemToDatabase
-
-#endif
         //---------------------------------------------------------------------------------------------------------------
         ///<summary>
         /// WriteItemListToDatabase - read all records from this.itemList and write to "theTable" 
@@ -460,7 +419,11 @@ namespace SQLServerDB
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }//CountRows_By_projectId
 
+#if TESTDBI
         //----------------------------------------------------------------------------------
+        /// <summary>
+        /// Show - if TESTDBI is defined in the build, enable the Show Table feature for Console output
+        /// </summary>
         public void Show()
         {
             Console.WriteLine("Table (" + theTable + ") contents");
@@ -468,8 +431,8 @@ namespace SQLServerDB
             {
                 r.Show();
             }
-        }
-
+        }//Show
+#endif
 
     }
 }
