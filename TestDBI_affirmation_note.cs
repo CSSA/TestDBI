@@ -7,13 +7,13 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-    partial class Program
+     class TestDBI_affirmation_note
     {
-        static void TestDBI_T_affirmation_note()
+        public static void SelectTest()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_note ");
+            Console.WriteLine("  --START: TestDBI_affirmation_note.SelectTest()");
 
-            switch (iSubMenuSelection())
+            switch (Program.iSubMenuSelection())
             {
                 case 1:
                     TestDBI_T_affirmation_note_Write_to_DB();
@@ -34,7 +34,7 @@ namespace TestDBI
                     Console.WriteLine("that is not a vaild option...");
                     break;
             }
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_note ");
+            Console.WriteLine("  --DONE: TestDBI_affirmation_note.SelectTest()");
         }
 
 
@@ -47,28 +47,28 @@ namespace TestDBI
             myTable.itemList = make_affirmation_note_list_1();
             int iRowsStart = myTable.itemList.Count;
             myTable.Show();
-            pause();
+            Util.pause();
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             if (iRows2 != 0)
-                pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
+                Util.pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
             else
-                pause("OK.  After Clear_Database_Table()");
+                Util.pause("OK.  After Clear_Database_Table()");
 
 
             Console.WriteLine("Write the table from RAM the SQLServer  Database table");
             myTable.WriteItemListToDatabase();
             int iRows3 = myTable.CountRows();
             if (iRows3 != iRowsStart)
-                pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
+                Util.pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
             else
-                pause("OK.  After WriteItemListToDatabase()");
+                Util.pause("OK.  After WriteItemListToDatabase()");
 
             Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
-            pause("visually inspect via SSMS?");
+            Util.pause("visually inspect via SSMS?");
 
             Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_Write_to_DB");
         }//TestDBI_T_affirmation_note_Write_to_DB
@@ -91,7 +91,7 @@ namespace TestDBI
             else
                 Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            pause();
+            Util.pause();
 
             Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_Read_from_DB");
         }//TestDBI_T_affirmation_note_Read_from_DB
@@ -121,20 +121,20 @@ namespace TestDBI
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            Util.pause();
 
             myTable.WriteItemListToDatabase();
             Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            Util.pause();
 
             int iRows3 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            Util.pause();
 
 
             //put demo records into myTable
@@ -148,15 +148,15 @@ namespace TestDBI
                 myTable.itemList.Add(affItem);
             }
             myTable.Show();
-            pause("--BEFORE the update, showing the planned updates in myTable.itemList");
+            Util.pause("--BEFORE the update, showing the planned updates in myTable.itemList");
 
             myTable.UpdateItemListToDatabase();
-            pause("-- AFTER the update, examine the affirmation_note Table using SSMS");
+            Util.pause("-- AFTER the update, examine the affirmation_note Table using SSMS");
 
             myTable.Clear_Database_Table_By_AffirmationID(2);
             myTable.Clear_Database_Table_By_AffirmationID(4);
             myTable.Clear_Database_Table_By_AffirmationID(6);
-            pause("-- AFTER Clear_Database_Table_By_AffirmationID {2,4,6} using SSMS");
+            Util.pause("-- AFTER Clear_Database_Table_By_AffirmationID {2,4,6} using SSMS");
 
             Console.WriteLine("  --DONE: TestDBI_T_affirmation_note_T3");
         }//TestDBI_T_affirmation_note_T3

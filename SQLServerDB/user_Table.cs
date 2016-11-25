@@ -224,10 +224,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_AffirmationID - delete user table records by username
+        /// SQLSeClear_Database_Table_By_username - delete user table records by username
         /// </summary>
         /// <param name="username"></param>
-        public void SQLServer_Clear_Database_Table_By_username(String username)
+        public void SQLSeClear_Database_Table_By_username(String username)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -245,14 +245,14 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//SQLSeClear_Database_Table_By_username
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
-        public int SQLServer_CountRows()
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -262,15 +262,15 @@ namespace SQLServerDB
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_username - count how many rows match the username
+        /// CountRows_By_username - count how many rows match the username
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_username(String username)
+        public int CountRows_By_username(String username)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -282,7 +282,18 @@ namespace SQLServerDB
              "  WHERE " + "username=" + username;
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
+        }//CountRows_By_username
+
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
         }
+
 
     }
 }

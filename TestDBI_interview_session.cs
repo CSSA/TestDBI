@@ -5,14 +5,14 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-    partial class Program
+     class TestDBI_interview_session
     {
 
-        static void TestDBI_T_interview_session()
+        public static void SelectTest()
         {
-            Console.WriteLine("  --START: TestDBI_T_interview_session ");
+            Console.WriteLine("  --START: TestDBI_interview_session.SelectTest()");
 
-            switch (iSubMenuSelection())
+            switch (Program.iSubMenuSelection())
             {
                 case 1:
                     TestDBI_T_interview_session_Write_to_DB();
@@ -33,7 +33,7 @@ namespace TestDBI
                     Console.WriteLine("that is not a vaild option...");
                     break;
             }
-            Console.WriteLine("  --DONE: TestDBI_T_interview_session ");
+            Console.WriteLine("  --DONE: TestDBI_interview_session.SelectTest()");
         }
 
 
@@ -47,28 +47,28 @@ namespace TestDBI
             myTable.itemList = make_interview_session_list_1();
             int iRowsStart = myTable.itemList.Count;
             myTable.Show();
-            pause();
+            Util.pause();
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             if (iRows2 != 0)
-                pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
+                Util.pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
             else
-                pause("OK.  After Clear_Database_Table()");
+                Util.pause("OK.  After Clear_Database_Table()");
 
 
             Console.WriteLine("Write the table from RAM the SQLServer  Database table");
             myTable.WriteItemListToDatabase();
             int iRows3 = myTable.CountRows();
             if (iRows3 != iRowsStart)
-                pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
+                Util.pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
             else
-                pause("OK.  After WriteItemListToDatabase()");
+                Util.pause("OK.  After WriteItemListToDatabase()");
 
             Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
-            pause("visually inspect via SSMS?");
+            Util.pause("visually inspect via SSMS?");
             Console.WriteLine("  --DONE: TestDBI_T_interview_session_Write_to_DB");
         }//TestDBI_T_interview_session_Write_to_DB
 
@@ -91,7 +91,7 @@ namespace TestDBI
             else
                 Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            pause();
+            Util.pause();
 
             Console.WriteLine("  --DONE: TestDBI_T_interview_session_Read_from_DB");
         }//TestDBI_T_interview_session_Read_from_DB

@@ -47,5 +47,16 @@ namespace SQLServerDB
             this.genericPractice = val_genericPractice;
             this.projectId = val_projectId;
         }
+
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5},{3,5},{4,5},{5,5},{6,5}",
+            notes,
+            processArea,
+            specificGoal, specificPractice,
+            genericGoal, genericPractice, projectId
+               );
+        }//Show
     }
 }

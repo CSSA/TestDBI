@@ -4,14 +4,14 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-    partial class Program
+    class TestDBI_goal_practice
     {
 
-        static void TestDBI_T_goal_practice()
+        public static void SelectTest()
         {
-            Console.WriteLine("  --START: TestDBI_T_goal_practice ");
+            Console.WriteLine("  --START: TestDBI_goal_practice.SelectTest()");
 
-            switch (iSubMenuSelection())
+            switch (Program.iSubMenuSelection())
             {
                 case 1:
                     TestDBI_T_goal_practice_Write_to_DB();
@@ -32,7 +32,7 @@ namespace TestDBI
                     Console.WriteLine("that is not a vaild option...");
                     break;
             }
-            Console.WriteLine("  --DONE: TestDBI_T_goal_practice ");
+            Console.WriteLine("  --DONE: TestDBI_goal_practice.SelectTest()");
         }
 
 
@@ -63,7 +63,7 @@ namespace TestDBI
             else
                 Console.WriteLine("OK. After WriteItemListToDatabase()");
 
-            pause("visually inspect via SSMS?");
+            Util.pause("visually inspect via SSMS?");
 
             Console.WriteLine("  --DONE: TestDBI_T_goal_practice_Write_to_DB");
         }//TestDBI_T_goal_practice_Write_to_DB
@@ -87,7 +87,7 @@ namespace TestDBI
             else
                 Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            pause();
+            Util.pause();
 
             Console.WriteLine("  --DONE: TestDBI_T_goal_practice_Read_From_DB");
         }//TestDBI_T_goal_practice_Read_From_DB
@@ -125,20 +125,20 @@ namespace TestDBI
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            Util.pause();
 
             myTable.WriteItemListToDatabase();
             Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            Util.pause();
 
             int iRows3 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            Util.pause();
 
 
             //put demo records into myTable in RAM
@@ -160,10 +160,10 @@ namespace TestDBI
                 myTable.itemList.Add(goal_practiceItem);
             }
             myTable.Show();
-            pause("--BEFORE the update, showing the planned updates in myTable.itemList");
+            Util.pause("--BEFORE the update, showing the planned updates in myTable.itemList");
 
             myTable.UpdateItemListToDatabase();
-            pause("-- AFTER the update, examine the goal_practice Table using SSMS");
+            Util.pause("-- AFTER the update, examine the goal_practice Table using SSMS");
 
             Console.WriteLine("  --DONE: TestDBI_T_goal_practice_T3");
         }//TestDBI_T_goal_practice_T3

@@ -5,14 +5,14 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-    partial class Program
+     class TestDBI_appraisal
     {
 
-        static void TestDBI_T_appraisal()
+        public static void SelectTest()
         {
-            Console.WriteLine("  --START: TestDBI_T_appraisal ");
+            Console.WriteLine("  --START: TestDBI_T_appraisal.SelectTest()");
 
-            switch (iSubMenuSelection())
+            switch (Program.iSubMenuSelection())
             {
                 case 1:
                     TestDBI_T_appraisal_write_to_DB();
@@ -33,7 +33,7 @@ namespace TestDBI
                     Console.WriteLine("that is not a vaild option...");
                     break;
             }
-            Console.WriteLine("  --DONE: TestDBI_T_appraisal ");
+            Console.WriteLine("  --DONE: TestDBI_T_appraisal.SelectTest()");
         }
 
 
@@ -91,20 +91,20 @@ namespace TestDBI
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            Util.pause();
 
             myTable.WriteItemListToDatabase();
             Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            Util.pause();
 
             int iRows3 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            Util.pause();
 
 
             //put demo records into myTable in RAM
@@ -123,7 +123,7 @@ namespace TestDBI
                 myTable.itemList.Add(appraisalItem);
             }
             myTable.Show();
-            pause("--BEFORE the update, showing the planned updates in myTable.itemList");
+            Util.pause("--BEFORE the update, showing the planned updates in myTable.itemList");
 
             SQLServerDB.appraisal appRef1 = myTable.itemList[0];
             appRef1.MaturityLevel = appRef1.MaturityLevel + 200;
@@ -134,7 +134,7 @@ namespace TestDBI
             appRef2.Projects = appRef2.Projects + ",P99";
 
             myTable.UpdateItemListToDatabase();
-            pause("-- AFTER the update, examine the appraisal Table using SSMS");
+            Util.pause("-- AFTER the update, examine the appraisal Table using SSMS");
 
 
             Console.WriteLine("  --DONE: TestDBI_T_appraisal_T3");

@@ -4,14 +4,14 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-    partial class Program
+     class TestDBI_improvement_opportunity
     {
 
-        static void TestDBI_T_improvement_opportunity()
+        public static void SelectTest()
         {
-            Console.WriteLine("  --START: TestDBI_T_improvement_opportunity ");
+            Console.WriteLine("  --START: TestDBI_improvement_opportunity.SelectTest() ");
 
-            switch (iSubMenuSelection())
+            switch (Program.iSubMenuSelection())
             {
                 case 1:
                     TestDBI_T_improvement_opportunity_Write_to_DB();
@@ -32,7 +32,7 @@ namespace TestDBI
                     Console.WriteLine("that is not a vaild option...");
                     break;
             }
-            Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity ");
+            Console.WriteLine("  --DONE: TestDBI_improvement_opportunity.SelectTest()");
         }
 
 
@@ -103,11 +103,11 @@ namespace TestDBI
 
             myTable.WriteItemListToDatabase();
             Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            Util.pause();
 
             int iRows3 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            Util.pause();
 
 
             //put demo records into myTable in RAM
@@ -128,11 +128,11 @@ namespace TestDBI
                 myTable.itemList.Add(improvement_opportunityItem);
             }
             myTable.Show();
-            pause("--BEFORE the update, showing the planned updates in myTable.itemList");
+            Util.pause("--BEFORE the update, showing the planned updates in myTable.itemList");
 
         
             myTable.UpdateItemListToDatabase();
-            pause("-- AFTER the update, examine the improvement_opportunity Table using SSMS");
+            Util.pause("-- AFTER the update, examine the improvement_opportunity Table using SSMS");
 
 
             Console.WriteLine("  --DONE: TestDBI_T_improvement_opportunity_T3");

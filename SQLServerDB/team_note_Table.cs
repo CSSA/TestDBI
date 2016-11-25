@@ -301,39 +301,41 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
-        public int SQLServer_CountRows()
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                LogManager.writeToLog("New connection failed to open; team_note_Table.cs: SQLServer_CountRows.GetNewSqlConnection()");
+                LogManager.writeToLog("New connection failed to open; team_note_Table.cs: CountRows.GetNewSqlConnection()");
                 return -1;
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows
+
+
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_processArea - count how many rows match the processAre
+        /// CountRows_By_processArea - count how many rows match the processAre
         /// </summary>
         /// <param name="processAre"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_processAre(String processAre)
+        public int CountRows_By_processAre(String processAre)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                LogManager.writeToLog("New connection failed to open; team_note_Table.cs:SQLServer_CountRows_By_processAre.GetNewSqlConnection");
+                LogManager.writeToLog("New connection failed to open; team_note_Table.cs:CountRows_By_processArea.GetNewSqlConnection");
                 return -1;
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable +
              "  WHERE " + "processAre=" + processAre;
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows_By_processArea
 
 
         //---------------------------------------------------------------------------------------------------------------
@@ -356,6 +358,15 @@ namespace SQLServerDB
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }
 
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
+        }
 
     }
 }

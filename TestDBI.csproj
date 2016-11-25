@@ -49,13 +49,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Program_InitConnections.cs" />
-    <Compile Include="Program_T_affirmation.cs" />
-    <Compile Include="Program_T_affirmation_note.cs" />
-    <Compile Include="Program_T_appraisal.cs" />
-    <Compile Include="Program_T_goal_practice.cs" />
-    <Compile Include="Program_T_improvement_opportunity.cs" />
-    <Compile Include="Program_T_interview_question.cs" />
-    <Compile Include="Program_T_interview_session.cs" />
+    <Compile Include="TestDBI_affirmation.cs" />
+    <Compile Include="TestDBI_affirmation_note.cs" />
+    <Compile Include="TestDBI_appraisal.cs" />
+    <Compile Include="TestDBI_goal_practice.cs" />
+    <Compile Include="TestDBI_improvement_opportunity.cs" />
+    <Compile Include="TestDBI_interview_question.cs" />
+    <Compile Include="TestDBI_interview_session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLServerDB\affirmation.cs" />
     <Compile Include="SQLServerDB\affirmation_note.cs" />
@@ -91,6 +91,15 @@
     <Compile Include="SQLServerDB\user_Table.cs" />
     <Compile Include="SQLServerDB\weakness.cs" />
     <Compile Include="SQLServerDB\weakness_Table.cs" />
+    <Compile Include="TestDBI_mapping.cs" />
+    <Compile Include="TestDBI_mapping_note.cs" />
+    <Compile Include="TestDBI_process_area.cs" />
+    <Compile Include="TestDBI_project.cs" />
+    <Compile Include="TestDBI_strength.cs" />
+    <Compile Include="TestDBI_team_note.cs" />
+    <Compile Include="TestDBI_user.cs" />
+    <Compile Include="TestDBI_weakness.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

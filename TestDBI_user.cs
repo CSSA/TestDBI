@@ -2,87 +2,88 @@
 using System.Collections.Generic;
 using SQLServerDB;
 
+
 namespace TestDBI
 {
-    partial class Program
+    class TestDBI_user
     {
 
         //--------------------------------------------------------------------------------------------
-        static void TestDBI_T_affirmation()
+        public static void SelectTest()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation ");
+            Console.WriteLine("  --START: TestDBI_user.SelectTest()");
 
-            switch (iSubMenuSelection())
+            switch (Program.iSubMenuSelection())
             {
                 case 1:
-                    TestDBI_T_affirmation_Write_to_DB();
+                    TestDBI_T_user_Write_to_DB();
                     break;
                 case 2:
-                    TestDBI_T_affirmation_Read_from_DB();
+                    TestDBI_T_user_Read_from_DB();
                     break;
                 case 3:
-                    TestDBI_T_affirmation_T3();
+                    TestDBI_T_user_T3();
                     break;
                 case 4:
-                    TestDBI_T_affirmation_T4();
+                    TestDBI_T_user_T4();
                     break;
                 case 5:
-                    TestDBI_T_affirmation_T5();
+                    TestDBI_T_user_T5();
                     break;
                 default:
                     Console.WriteLine("that is not a vaild option...");
                     break;
             }
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation ");
+            Console.WriteLine("  --DONE: TestDBI_user.SelectTest()");
         }
         //-------------------------------------------------------------------------------------------
         /// <summary>
-        /// TestDBI_T_affirmation_Write_to_DB -- write itemlist to DB
+        /// TestDBI_T_user_Write_to_DB -- write itemlist to DB
         /// </summary>
-        static void TestDBI_T_affirmation_Write_to_DB()
+        static void TestDBI_T_user_Write_to_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_Write_to_DB");
+            Console.WriteLine("  --START: TestDBI_T_user_Write_to_DB");
 
-            affirmation_Table myTable = new affirmation_Table();
-            myTable.itemList = make_affirmation_list_1();
+            user_Table myTable = new user_Table();
+            myTable.itemList = make_user_list_1();
             int iRowsStart = myTable.itemList.Count;
             myTable.Show();
-            pause();
+            Util.pause();
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             if (iRows2 != 0)
-                pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
+                Util.pause("Error.  iRows=" + iRows2 + " should be zero after Clear_Database_Table()");
             else
-                pause("OK.  After Clear_Database_Table()");
+                Util.pause("OK.  After Clear_Database_Table()");
 
 
             Console.WriteLine("Write the table from RAM the SQLServer  Database table");
             myTable.WriteItemListToDatabase();
             int iRows3 = myTable.CountRows();
             if (iRows3 != iRowsStart)
-                pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
+                Util.pause("Error.  iRows3=" + iRows3 + " should be " + iRowsStart + " after WriteItemListToDatabase");
             else
-                pause("OK.  After WriteItemListToDatabase()");
+                Util.pause("OK.  After WriteItemListToDatabase()");
 
             Console.WriteLine("  --after writing to the SQLServer database table.  examine the table using SSMS");
-            pause("visually inspect via SSMS?");
+            Util.pause("visually inspect via SSMS?");
 
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Write_to_DB");
-        }//TestDBI_T_affirmation_Write_to_DB
+            Console.WriteLine("  --DONE: TestDBI_T_user_Write_to_DB");
+        }//TestDBI_T_user_Write_to_DB
 
 
         //-------------------------------------------------------------------------------------------
         /// <summary>
-        /// TestDBI_T_affirmation_Read_from_DB -- read from DB
+        /// TestDBI_T_user_Read_from_DB -- read from DB
         /// </summary>
-        static void TestDBI_T_affirmation_Read_from_DB()
+        static void TestDBI_T_user_Read_from_DB()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_Read_from_DB");
+            Console.WriteLine("  --START: TestDBI_T_user_Read_from_DB");
 
-            SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
+            SQLServerDB.user_Table myTable = new SQLServerDB.user_Table();
 
             int iRows = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
@@ -95,30 +96,30 @@ namespace TestDBI
             else
                 Console.WriteLine("OK.  After ReadItemListFromDatabase()");
 
-            pause();
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_Read_from_DB");
-        }//TestDBI_T_affirmation_Read_from_DB
+            Util.pause();
+            Console.WriteLine("  --DONE: TestDBI_T_user_Read_from_DB");
+        }//TestDBI_T_user_Read_from_DB
 
 
 
         /// <summary>
-        /// TestDBI_T_affirmation_T3 -  clear the SQLServer affirmation table, write some demo data to SQLServer DB, 
+        /// TestDBI_T_user_T3 -  clear the SQLServer user table, write some demo data to SQLServer DB, 
         /// query the affirmatin table by Project ID, 
         /// </summary>
-        static void TestDBI_T_affirmation_T3()
+        static void TestDBI_T_user_T3()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_T3");
+            Console.WriteLine("  --START: TestDBI_T_user_T3");
 
             //Construct myTable in RAM
-            SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
-
+            SQLServerDB.user_Table myTable = new SQLServerDB.user_Table();
+#if rewrite
             //put demo records into myTable
             for (int i = 1; i < 10; i++)
             {
-                SQLServerDB.affirmation affItem = new SQLServerDB.affirmation();
-                affItem.affirmationId = i;
-                affItem.affirmationName = "aff_Name_" + i.ToString();
-                affItem.affirmationType = "aff_Type_" + i.ToString();
+                SQLServerDB.user affItem = new SQLServerDB.user();
+                affItem.userId = i;
+                affItem.userName = "aff_Name_" + i.ToString();
+                affItem.userType = "aff_Type_" + i.ToString();
                 affItem.specificGoal = "aff_specificGoal_" + i.ToString();
                 affItem.specificPractice = "aff_specificPractice_" + i.ToString();
                 affItem.genericGoal = "aff_genericGoal_" + i.ToString();
@@ -130,25 +131,25 @@ namespace TestDBI
             }
 
 
-            //Count SQLServerDB affirmation table rows before clearing
+            //Count SQLServerDB user table rows before clearing
             int iRows = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            Util.pause();
 
             myTable.WriteItemListToDatabase();
             Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            Util.pause();
 
             int iRows3 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            Util.pause();
 
             int iSeek_ProjectID = 3;
             Console.WriteLine("seek item:  iSeek_ProjectID= " + iSeek_ProjectID);
@@ -156,11 +157,11 @@ namespace TestDBI
 
             Console.WriteLine("SEEK items found: myTable.itemList.Count =" + myTable.itemList.Count.ToString());
 
-            SQLServerDB.affirmation affSeek = myTable.itemList[0];
+            SQLServerDB.user affSeek = myTable.itemList[0];
 
-            Console.WriteLine("affSeek.affirmationId =" + affSeek.affirmationId);
-            Console.WriteLine("affSeek.affirmationName =" + affSeek.affirmationName);
-            Console.WriteLine("affSeek.affirmationType =" + affSeek.affirmationType);
+            Console.WriteLine("affSeek.userId =" + affSeek.userId);
+            Console.WriteLine("affSeek.userName =" + affSeek.userName);
+            Console.WriteLine("affSeek.userType =" + affSeek.userType);
             Console.WriteLine("affSeek.specificGoal =" + affSeek.specificGoal);
             Console.WriteLine("affSeek.specificPractice =" + affSeek.specificPractice);
             Console.WriteLine("affSeek.genericGoal =" + affSeek.genericGoal);
@@ -168,7 +169,7 @@ namespace TestDBI
             Console.WriteLine("affSeek.processArea =" + affSeek.processArea);
             Console.WriteLine("affSeek.projectId =" + affSeek.projectId);
 
-            pause();
+            Util.pause();
 
             //set the search-by criteria
             String strSeek_processArea = "aff_processArea_4";
@@ -177,11 +178,11 @@ namespace TestDBI
             myTable.ReadItemListFromDatabase_By_processArea(strSeek_processArea);
             Console.WriteLine("SEEK items by processArea found: myTable.itemList.Count =" + myTable.itemList.Count.ToString());
 
-            SQLServerDB.affirmation affSeek_processArea = myTable.itemList[0];
+            SQLServerDB.user affSeek_processArea = myTable.itemList[0];
 
-            Console.WriteLine("affSeek_processArea.affirmationId =" + affSeek_processArea.affirmationId);
-            Console.WriteLine("affSeek_processArea.affirmationName =" + affSeek_processArea.affirmationName);
-            Console.WriteLine("affSeek_processArea.affirmationType =" + affSeek_processArea.affirmationType);
+            Console.WriteLine("affSeek_processArea.userId =" + affSeek_processArea.userId);
+            Console.WriteLine("affSeek_processArea.userName =" + affSeek_processArea.userName);
+            Console.WriteLine("affSeek_processArea.userType =" + affSeek_processArea.userType);
             Console.WriteLine("affSeek_processArea.specificGoal =" + affSeek_processArea.specificGoal);
             Console.WriteLine("affSeek_processArea.specificPractice =" + affSeek_processArea.specificPractice);
             Console.WriteLine("affSeek_processArea.genericGoal =" + affSeek_processArea.genericGoal);
@@ -189,28 +190,28 @@ namespace TestDBI
             Console.WriteLine("affSeek_processArea.processArea =" + affSeek_processArea.processArea);
             Console.WriteLine("affSeek_processArea.projectId =" + affSeek_processArea.projectId);
 
-            pause();
-
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_T3");
+            Util.pause();
+#endif
+            Console.WriteLine("  --DONE: TestDBI_T_user_T3");
         }
 
         /// <summary>
-        /// TestDBI_T_affirmation_T4 -- 
+        /// TestDBI_T_user_T4 -- 
         /// </summary>
-        static void TestDBI_T_affirmation_T4()
+        static void TestDBI_T_user_T4()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_T4");
+            Console.WriteLine("  --START: TestDBI_T_user_T4");
 
             //Construct a brand new myTable in RAM
-            SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
-
+            SQLServerDB.user_Table myTable = new SQLServerDB.user_Table();
+#if rewrite
             //put demo records into myTable
             for (int i = 1; i < 10; i++)
             {
-                SQLServerDB.affirmation affItem = new SQLServerDB.affirmation();
-                affItem.affirmationId = i;
-                affItem.affirmationName = "aff_Name_" + i.ToString();
-                affItem.affirmationType = "aff_Type_" + i.ToString();
+                SQLServerDB.user affItem = new SQLServerDB.user();
+                affItem.userId = i;
+                affItem.userName = "aff_Name_" + i.ToString();
+                affItem.userType = "aff_Type_" + i.ToString();
                 affItem.specificGoal = "aff_specificGoal_" + i.ToString();
                 affItem.specificPractice = "aff_specificPractice_" + i.ToString();
                 affItem.genericGoal = "aff_genericGoal_" + i.ToString();
@@ -221,28 +222,28 @@ namespace TestDBI
                 myTable.itemList.Add(affItem);
             }
 
-            //Count SQLServerDB affirmation table rows before clearing
+            //Count SQLServerDB user table rows before clearing
             int iRows = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
             Console.WriteLine("  --before clear SQLServer database table");
-            pause();
+            Util.pause();
 
             myTable.Clear_Database_Table();
             int iRows2 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows2.ToString());
-            pause();
+            Util.pause();
 
-            foreach (SQLServerDB.affirmation r in myTable.itemList)
+            foreach (SQLServerDB.user r in myTable.itemList)
             {
                 myTable.WriteItemToDatabase(r);
             }
             Console.WriteLine("after writing to SQLServerDB");
-            pause();
+            Util.pause();
 
             int iRows3 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows3.ToString());
-            pause();
+            Util.pause();
 
             Console.WriteLine("---update the table");
 
@@ -252,10 +253,10 @@ namespace TestDBI
             //put demo records into myTable
             for (int i = 1; i < 10; i++)
             {
-                SQLServerDB.affirmation affItem = new SQLServerDB.affirmation();
-                affItem.affirmationId = i;
-                affItem.affirmationName = "aff_Name_" + i.ToString() + "_A";
-                affItem.affirmationType = "aff_Type_" + i.ToString() + "_B";
+                SQLServerDB.user affItem = new SQLServerDB.user();
+                affItem.userId = i;
+                affItem.userName = "aff_Name_" + i.ToString() + "_A";
+                affItem.userType = "aff_Type_" + i.ToString() + "_B";
                 affItem.specificGoal = "aff_specificGoal_" + i.ToString() + "_C";
                 affItem.specificPractice = "aff_specificPractice_" + i.ToString() + "_D";
                 affItem.genericGoal = "aff_genericGoal_" + i.ToString() + "_E";
@@ -267,42 +268,42 @@ namespace TestDBI
             }
 
             Console.WriteLine("BEFORE the table update");
-            pause();
+            Util.pause();
             myTable.UpdateItemListToDatabase();
             Console.WriteLine("AFTER the table update");
-            pause();
+            Util.pause();
 
 
             for (int i = 4; i <= 6; i++)
-                myTable.Clear_Database_Table_By_AffirmationID(i);
-            Console.WriteLine("AFTER the table record deletions:  AffirmationI={4,5,6}");
-            pause();
+                myTable.Clear_Database_Table_By_userID(i);
+            Console.WriteLine("AFTER the table record deletions:  userI={4,5,6}");
+            Util.pause();
 
             myTable.Clear_Database_Table_By_projectD(102);
             myTable.Clear_Database_Table_By_projectD(108);
             Console.WriteLine("AFTER the table record deletions:  ProjectID = {102, 108}");
-            pause();
+            Util.pause();
+#endif
 
-
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_T4");
+            Console.WriteLine("  --DONE: TestDBI_T_user_T4");
         }
 
 
-        static void TestDBI_T_affirmation_T5()
+        static void TestDBI_T_user_T5()
         {
-            Console.WriteLine("  --START: TestDBI_T_affirmation_T5");
-
+            Console.WriteLine("  --START: TestDBI_T_user_T5");
+#if rewrite
             //Construct a brand new myTable in RAM
-            SQLServerDB.affirmation_Table myTable = new SQLServerDB.affirmation_Table();
+            SQLServerDB.user_Table myTable = new SQLServerDB.user_Table();
 
             int iRowsStart = 5;
             //put demo records into myTable
             for (int i = 1; i <= iRowsStart; i++)
             {
-                SQLServerDB.affirmation affItem = new SQLServerDB.affirmation();
-                affItem.affirmationId = i;
-                affItem.affirmationName = "aff_Name_" + i.ToString();
-                affItem.affirmationType = "aff_Type_" + i.ToString();
+                SQLServerDB.user affItem = new SQLServerDB.user();
+                affItem.userId = i;
+                affItem.userName = "aff_Name_" + i.ToString();
+                affItem.userType = "aff_Type_" + i.ToString();
                 affItem.specificGoal = "aff_specificGoal_" + i.ToString();
                 affItem.specificPractice = "aff_specificPractice_" + i.ToString();
                 affItem.genericGoal = "aff_genericGoal_" + i.ToString();
@@ -313,7 +314,7 @@ namespace TestDBI
                 myTable.itemList.Add(affItem);
             }
 
-            //Count SQLServerDB affirmation table rows before clearing
+            //Count SQLServerDB user table rows before clearing
             int iRows1 = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows1.ToString());
 
@@ -330,47 +331,51 @@ namespace TestDBI
             else
                 Console.WriteLine("OK. CountRows=" + iRows3 + " After WriteItemListToDatabase");
 
-           pause("examine table content with SSMS");
+            Util.pause("examine table content with SSMS");
 
-            pause("before table query by projectID");    
+            Util.pause("before table query by projectID");
             int iProjectCount_404 = myTable.CountRows_By_projectId(404);
             if (iProjectCount_404 != iRowsStart)
                 Console.WriteLine("ERROR.  iProjectCount_404=" + iProjectCount_404 + ". Expected " + iRowsStart);
             else
                 Console.WriteLine("OK. CountRows=" + iProjectCount_404 + " After WriteItemListToDatabase");
-            pause();
-
-            Console.WriteLine("  --DONE: TestDBI_T_affirmation_T5");
+            Util.pause();
+#endif
+            Console.WriteLine("  --DONE: TestDBI_T_user_T5");
         }
 
 
-        static List<affirmation> make_affirmation_list_1()
+        static List<user> make_user_list_1()
         {
-            List<affirmation> myList = new List<affirmation>()
-            { 
-             new  affirmation( 1, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 1),
-             new  affirmation( 2, "affName_2",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
-             new  affirmation( 3, "affName_3",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
-             new  affirmation( 4, "affName_4",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
-             new  affirmation( 5, "affName_5",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+
+            List<user> myList = new List<user>()
+            {
+#if rewrite
+                new  user( 1, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 1),
+             new  user( 2, "affName_2",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+             new  user( 3, "affName_3",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+             new  user( 4, "affName_4",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+             new  user( 5, "affName_5",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2), 
+#endif
            };
             return myList;
-        }//make_affirmation_list_1
+        }//make_user_list_1
 
 
-        static List<affirmation> make_affirmation_list_2()
+        static List<user> make_user_list_2()
         {
-            List<affirmation> myList = new List<affirmation>()
+            List<user> myList = new List<user>()
            {
-           new  affirmation( 1, "affName_1",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 1),
-           new  affirmation( 2, "affName_2",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
-           new  affirmation( 3, "affName_3",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
-           new  affirmation( 4, "affName_4",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
-           new  affirmation( 5, "affName_5",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
-
+#if rewrite
+           new  user( 1, "affName_1",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 1),
+           new  user( 2, "affName_2",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+           new  user( 3, "affName_3",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+           new  user( 4, "affName_4",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+           new  user( 5, "affName_5",  "affType_2-REV-A", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7-REV-A", 2),
+#endif
            };
             return myList;
-        }//make_affirmation_list_2
+        }//make_user_list_2
 
     }
 }

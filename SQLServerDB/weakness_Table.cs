@@ -283,7 +283,7 @@ namespace SQLServerDB
         /// SQLServer_Clear_Database_Table_By_projectID- delete weakness table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
-        public void SQLServer_Clear_Database_Table_By_projectId(int projectId)
+        public void Clear_Database_Table_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -301,14 +301,14 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_projectId
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
-        public int SQLServer_CountRows()
+        public int CountRows()
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -318,15 +318,15 @@ namespace SQLServerDB
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_processArea - count how many rows match the processAre
+        /// CountRows_By_processAre - count how many rows match the processAre
         /// </summary>
         /// <param name="processAre"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_processAre(String processAre)
+        public int CountRows_By_processAre(String processAre)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -338,16 +338,16 @@ namespace SQLServerDB
              "  WHERE " + "processAre=" + processAre;
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows_By_processAre
 
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_projectId - count how many rows match the projectId
+        /// CountRows_By_projectId - count how many rows match the projectId
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_projectId(int projectId)
+        public int CountRows_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -359,8 +359,17 @@ namespace SQLServerDB
              "  WHERE " + "projectId=" + projectId.ToString();
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows_By_projectId
 
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("Table (" + theTable + ") contents");
+            foreach (var r in itemList)
+            {
+                r.Show();
+            }
+        }
 
     }
 }

@@ -26,7 +26,15 @@ namespace SQLServerDB
             this.organization = val_organization;
             this.password = val_password;  //WARNING:  This should only be temporary & should not remain in the production system  
         }
-
+        //----------------------------------------------------------------------------------
+        public void Show()
+        {
+            Console.WriteLine("{0,5},{1,5},{2,5}", 
+            username,
+            organization,
+            password
+                );
+        }//Show
 
     }//class user
 
