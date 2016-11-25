@@ -255,15 +255,15 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_processArea- delete weakness table records by processArea
+        /// Clear_Database_Table_By_processArea- delete weakness table records by processArea
         /// </summary>
         /// <param name="processArea"></param>
-        public void SQLServer_Clear_Database_Table_By_processArea(String processArea)
+        public void Clear_Database_Table_By_processArea(String processArea)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                Console.WriteLine("New connection failed to open; weakness_Table.cs: SQLServer_Clear_Database_Table_By_processArea.GetNewSqlConnection()");
+                Console.WriteLine("New connection failed to open; weakness_Table.cs: Clear_Database_Table_By_processArea.GetNewSqlConnection()");
                 return;
             }
 
@@ -276,11 +276,11 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_processArea
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_projectID- delete weakness table records by projectId
+        /// Clear_Database_Table_By_projectId- delete weakness table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
         public void Clear_Database_Table_By_projectId(int projectId)
@@ -288,7 +288,7 @@ namespace SQLServerDB
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                Console.WriteLine("New connection failed to open; weakness_Table.cs: SQLServer_Clear_Database_Table_By_projectId.GetNewSqlConnection()");
+                Console.WriteLine("New connection failed to open; weakness_Table.cs: Clear_Database_Table_By_projectId.GetNewSqlConnection()");
                 return;
             }
 

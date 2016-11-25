@@ -245,7 +245,7 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows - count how many rows in the table
+        /// CountRows - count how many rows in the table
         /// </summary>
         /// <returns></returns>
         public int CountRows()
@@ -258,7 +258,7 @@ namespace SQLServerDB
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows
 
 #if TESTDBI
         //----------------------------------------------------------------------------------

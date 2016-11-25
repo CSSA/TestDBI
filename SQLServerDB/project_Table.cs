@@ -225,7 +225,7 @@ namespace SQLServerDB
             string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog(" ExecuteSqlNonQuery returned: FALSE; in project_Table.cs:Clear_Database_Table. ExecuteSqlNonQuery");
-        }
+        }//Clear_Database_Table
 
 
         //---------------------------------------------------------------------------------------------------------------
@@ -251,7 +251,7 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_projectId
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>

@@ -189,7 +189,7 @@ namespace SQLServerDB
 
             foreach (var r in itemList)
             {
-                WriteItemToDatabased(r);
+                WriteItemToDatabase(r);
             }//foreach
 
             myConnection.Close();
@@ -202,7 +202,7 @@ namespace SQLServerDB
         /// WriteItemToDatabase - read all records from this.itemList and write to "theTable"
         ///</summary>
         ///<output>improvement_opportunity r - output one improvement_opportunity object to the "theTable" in the database </output>
-        public void WriteItemToDatabased(improvement_opportunity r)
+        public void WriteItemToDatabase(improvement_opportunity r)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -232,7 +232,7 @@ namespace SQLServerDB
             myCommand.ExecuteNonQuery();
 
             myConnection.Close();
-        }//WriteItemToDatabased
+        }//WriteItemToDatabase
 
 
         //---------------------------------------------------------------------------------------------------------------

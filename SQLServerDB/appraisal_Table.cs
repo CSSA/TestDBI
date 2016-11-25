@@ -130,7 +130,6 @@ namespace SQLServerDB
             }//foreach
 
             myConnection.Close();
-
         }//WriteItemListToDatabase
 
 
@@ -253,10 +252,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_appraisalName - delete appraisal table records by appraisalName
+        /// Clear_Database_Table_By_appraisalName - delete appraisal table records by appraisalName
         /// </summary>
         /// <param name="appraisalName"></param>
-        public void SQLServer_Clear_Database_Table_By_appraisalName(String appraisalName)
+        public void Clear_Database_Table_By_appraisalName(String appraisalName)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -274,7 +273,7 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_appraisalName
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>

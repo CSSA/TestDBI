@@ -252,15 +252,15 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_processArea- delete team_notes table records by processArea
+        /// Clear_Database_Table_By_processArea- delete team_notes table records by processArea
         /// </summary>
         /// <param name="processArea"></param>
-        public void SQLServer_Clear_Database_Table_By_processArea(String processArea)
+        public void Clear_Database_Table_By_processArea(String processArea)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                Console.WriteLine("New connection failed to open; team_note_Table.cs:SQLServer_Clear_Database_Table_By_processArea.GetNewSqlConnection()");
+                Console.WriteLine("New connection failed to open; team_note_Table.cs:Clear_Database_Table_By_processArea.GetNewSqlConnection()");
                 return;
             }
 
@@ -273,18 +273,18 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_processArea
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_prjojectD- delete affirmation table records by projectId
+        /// Clear_Database_Table_By_projectId- delete affirmation table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
-        public void SQLServer_Clear_Database_Table_By_projectId(int projectId)
+        public void Clear_Database_Table_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                Console.WriteLine("New connection failed to open; team_note_Table.cs:SQLServer_Clear_Database_Table_By_projectId.GetNewSqlConnection()");
+                Console.WriteLine("New connection failed to open; team_note_Table.cs:Clear_Database_Table_By_projectId.GetNewSqlConnection()");
                 return;
             }
 
@@ -297,7 +297,7 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_projectId
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -321,9 +321,9 @@ namespace SQLServerDB
         /// <summary>
         /// CountRows_By_processArea - count how many rows match the processAre
         /// </summary>
-        /// <param name="processAre"></param>
+        /// <param name="processArea"></param>
         /// <returns></returns>
-        public int CountRows_By_processAre(String processAre)
+        public int CountRows_By_processArea(String processArea)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -332,7 +332,7 @@ namespace SQLServerDB
                 return -1;
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable +
-             "  WHERE " + "processAre=" + processAre;
+             "  WHERE " + "processAre=" + processArea;
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
         }//CountRows_By_processArea
@@ -340,11 +340,11 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_CountRows_By_projectId - count how many rows match the projectId
+        /// CountRows_By_projectId - count how many rows match the projectId
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public int SQLServer_CountRows_By_projectId(int projectId)
+        public int CountRows_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -356,7 +356,7 @@ namespace SQLServerDB
              "  WHERE " + "projectId=" + projectId.ToString();
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows_By_projectId
 
 #if TESTDBI
         //----------------------------------------------------------------------------------

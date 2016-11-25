@@ -244,10 +244,10 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_processArea- delete affirmation table records by processArea
+        /// Clear_Database_Table_By_processArea- delete affirmation table records by processArea
         /// </summary>
         /// <param name="processArea"></param>
-        public void SQLServer_Clear_Database_Table_By_processArea(String processArea)
+        public void Clear_Database_Table_By_processArea(String processArea)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -265,14 +265,14 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_processArea
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_prjojectD- delete strength table records by projectId
+        /// Clear_Database_Table_By_projectId- delete strength table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
-        public void SQLServer_Clear_Database_Table_By_projectId(int projectId)
+        public void Clear_Database_Table_By_projectId(int projectId)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -290,7 +290,7 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }
+        }//Clear_Database_Table_By_projectId
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -307,7 +307,7 @@ namespace SQLServerDB
             }
             string strQuery = "SELECT COUNT(*)  FROM " + theTable;
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -315,7 +315,7 @@ namespace SQLServerDB
         /// </summary>
         /// <param name="processAre"></param>
         /// <returns></returns>
-        public int CountRows_By_processAre(String processAre)
+        public int CountRows_By_processArea(String processAre)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
@@ -327,7 +327,7 @@ namespace SQLServerDB
              "  WHERE " + "processAre=" + processAre;
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows_By_processArea
 
 
         //---------------------------------------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ namespace SQLServerDB
              "  WHERE " + "projectId=" + projectId.ToString();
 
             return DBUtils.ExecuteSqlQueryScalar(strQuery, myConnection);
-        }
+        }//CountRows_By_projectId
 #if TESTDBI
         //----------------------------------------------------------------------------------
         /// <summary>

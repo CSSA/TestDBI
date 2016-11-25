@@ -220,19 +220,19 @@ namespace SQLServerDB
             string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog(" ExecuteSqlNonQuery returned: FALSE; in user.cs:Clear_Database_Table. ExecuteSqlNonQuery");
-        }
+        }//Clear_Database_Table
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLSeClear_Database_Table_By_username - delete user table records by username
+        /// Clear_Database_Table_By_username - delete user table records by username
         /// </summary>
         /// <param name="username"></param>
-        public void SQLSeClear_Database_Table_By_username(String username)
+        public void Clear_Database_Table_By_username(String username)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {
-                Console.WriteLine("New connection failed to open; user_Table.cs:SQLServer_Clear_Database_Table_By_username.GetNewSqlConnection()");
+                Console.WriteLine("New connection failed to open; user_Table.cs:Clear_Database_Table_By_username.GetNewSqlConnection()");
                 return;
             }
 
@@ -245,7 +245,7 @@ namespace SQLServerDB
 
             myCommand.ExecuteNonQuery();
             myConnection.Close();
-        }//SQLSeClear_Database_Table_By_username
+        }//Clear_Database_Table_By_username
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>

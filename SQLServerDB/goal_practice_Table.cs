@@ -376,7 +376,7 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_processArea- delete affirmation table records by processArea
+        /// Clear_Database_Table_By_processAreaId- delete affirmation table records by processArea
         /// </summary>
         /// <param name="nodeName"></param>
         public void Clear_Database_Table_By_processAreaId(int paId)
@@ -401,7 +401,7 @@ namespace SQLServerDB
 
         //---------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// SQLServer_Clear_Database_Table_By_prjojectD- delete affirmation table records by projectId
+        /// Clear_Database_Table_By_projectId- delete affirmation table records by projectId
         /// </summary>
         /// <param name="projectId"></param>
         public void Clear_Database_Table_By_projectId(int projectId)

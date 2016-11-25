@@ -125,7 +125,7 @@ namespace SQLServerDB
         ///<summary>
         /// WriteItemToDatabase - read all records from this.itemList and write to "theTable"
         ///</summary>
-        ///<output>interview_question r - output one interview_question object to the "theTable" in the database </output>
+        ///<output>interview_question  - output one interview_question object to the "theTable" in the database </output>
         public void WriteItemToDatabase(interview_question r)
         {
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
