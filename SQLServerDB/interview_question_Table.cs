@@ -193,7 +193,7 @@ namespace SQLServerDB
             string strQuery = "UPDATE  " + theTable +
                 " SET " +
                 " interviewQuestions=@interviewQuestions," +
-                " questionNotes=@questionNotes," +
+                " questionNotes=@questionNotes" +
                 " WHERE " +
                 " sessionId=@sessionId";  // <<<---- match on the sessionId
 

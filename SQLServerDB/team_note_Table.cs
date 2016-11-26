@@ -217,7 +217,7 @@ namespace SQLServerDB
                 " specificGoal=@specificGoal," +
                 " specificPractice=@specificPractice," +
                 " genericGoal=@genericGoal," +
-                " genericPractice=@genericPractice," +
+                " genericPractice=@genericPractice" +
                 " WHERE " +
                 " projectId=@projectId";  // <<<---- match on the Primary Key  !!! TBD:  This is probably NOT going to work!  may keys will match on projectId????
 
@@ -231,7 +231,7 @@ namespace SQLServerDB
             myCommand.Parameters.AddWithValue("@specificPractice", r.specificPractice);
             myCommand.Parameters.AddWithValue("@genericGoal", r.genericGoal);
             myCommand.Parameters.AddWithValue("@genericPractice", r.genericPractice);
-
+            myCommand.Parameters.AddWithValue("@projectId", r.projectId);
             myCommand.ExecuteNonQuery();
 
             myConnection.Close();

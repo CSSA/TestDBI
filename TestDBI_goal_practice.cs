@@ -125,7 +125,7 @@ namespace TestDBI
             }
 
 
-            //Count SQLServerDB affirmation table rows before clearing
+            //Count SQLServerDB goal_practice table rows before clearing
             int iRows = myTable.CountRows();
             Console.WriteLine("myTable.CountRows = " + iRows.ToString());
 
@@ -200,7 +200,7 @@ namespace TestDBI
 
            };
             return myList;
-        }//make_affirmation_list_1
+        }//make_goal_practice_list_1
 
 
 
@@ -209,11 +209,24 @@ namespace TestDBI
         static void TestDBI_T_goal_practice_AutoCheck()
         {
             Console.WriteLine("START: TestDBI_T_goal_practice_AutoCheck()");
-            int iResult = TestDBI_T_goal_practice_AutoCheck_WriteRead();
+            int iResult;
+            
+            iResult= TestDBI_T_goal_practice_AutoCheck_WriteRead();
             if (iResult == 0)
                 Console.WriteLine("OK: TestDBI_T_goal_practice_AutoCheck_WriteRead");
             else
                 Console.WriteLine("ERROR: TestDBI_T_goal_practice_AutoCheck_WriteRead:    iResult=" + iResult);
+
+
+            iResult = TestDBI_T_goal_practice_AutoCheck_Update();
+            if (iResult == 0)
+                Console.WriteLine("OK: TestDBI_T_goal_practice_AutoCheck_Update");
+            else
+                Console.WriteLine("ERROR: TestDBI_T_goal_practice_AutoCheck_Update:    iResult=" + iResult);
+
+            iResult = TestDBI_T_goal_practice_AutoCheck_Update();
+
+            Console.WriteLine("DONE: TestDBI_T_goal_practice_AutoCheck_Update()");
 
             Console.WriteLine("DONE: TestDBI_T_goal_practice_AutoCheck()");
         }
@@ -286,6 +299,110 @@ namespace TestDBI
             Console.WriteLine("DONE: TestDBI_T_goal_practice_AutoCheck_WriteRead()");
             return iResult;
         }
+
+
+
+        /// <summary>
+        /// TestDBI_T_goal_practice_AutoCheck_Update - Update Item List;
+        /// 1.1) Create test data: myTable1;
+        /// 1.2) Clear DBTable;
+        /// 1.3) Write myTable1 to DBTable; 
+        /// 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+        /// 1.5) Read myTable2 from DBTable
+        /// 1.6) Compare tables (myTable1 == myTable2)
+        /// 1.7) Create the update table (myTableUpdate)
+        /// 1.8) Update TableDB
+        /// 1.9) Read myTable3
+        /// 1.10) Compare tables.itemLists(myTableUpdate == myTable3)
+        /// </summary>
+        /// <returns></returns>
+        static int TestDBI_T_goal_practice_AutoCheck_Update()
+        {
+            const int OK = 0;
+            int iResult = OK;
+            Console.WriteLine("START: TestDBI_T_goal_practice_AutoCheck_Update()");
+
+            // 1.1) CreateTestData1: myTable1
+            goal_practice_Table myTable1 = new goal_practice_Table();
+            myTable1.itemList = new List<goal_practice>()
+            {
+            // goal_practice(int val_nodeId, int val_processAreaId, int val_projectId, string val_name, bool val_isGoal, bool val_isPractice, string val_rating, bool val_coverage)
+            new goal_practice(1, 1, 1, "name_1", true, true, "rating_1", true),
+            new goal_practice(2, 1, 1, "name_2", true, true, "rating_2", true),
+            new goal_practice(3, 1, 1, "name_3", true, true, "rating_3", true),
+            new goal_practice(4, 1, 1, "name_4", true, true, "rating_4", true),
+            new goal_practice(5, 1, 1, "name_5", true, true, "rating_5", true),
+            };
+            int iRowsAtStart = myTable1.itemList.Count;
+
+            // 1.2) ClearDBTable
+            myTable1.Clear_Database_Table();
+            int iRowsAfterClear = myTable1.CountRows();
+            if (iRowsAfterClear != 0)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be empty after Clear_Database_Table.  iRowsAfterClear=" + iRowsAfterClear);
+                return iResult;
+            }
+
+            // 1.3) Write myTable1 to DBTable 
+            myTable1.WriteItemListToDatabase();
+
+            // 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+            int iRowsAfterWriteItemListr = myTable1.CountRows();
+            if (iRowsAfterWriteItemListr != iRowsAtStart)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as iRowsAtStart after WriteItemListToDatabase.  iRowsAfterWriteItemListr=" + iRowsAfterWriteItemListr);
+                return iResult;
+            }
+
+            /// 1.5) Read myTable2 from DBTable
+            goal_practice_Table myTable2 = new goal_practice_Table();
+            myTable2.ReadItemListFromDatabase();
+
+            /// 1.6) Compare tables (myTable1 == myTable2)
+            if (!TestDBI_T_goal_practice_CompareLists(myTable1.itemList, myTable2.itemList))
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as test data");
+                return iResult;
+            }
+
+            /// 1.7) Create the update table (myTableUpdate)
+            goal_practice_Table myTableUpdate = new goal_practice_Table();
+            myTableUpdate.itemList = new List<goal_practice>()
+            {
+            // goal_practice(int val_nodeId, int val_processAreaId, int val_projectId, string val_name, bool val_isGoal, bool val_isPractice, string val_rating, bool val_coverage)
+            new goal_practice(1, 1, 1, "name_1", true, true, "rating_1", true),
+            new goal_practice(2, 1, 1, "name_2", true, true, "rating_2-update", true),
+            new goal_practice(3, 1, 1, "name_3", true, true, "rating_3", true),
+            new goal_practice(4, 1, 1, "name_4", true, true, "rating_4-update", true),
+            new goal_practice(5, 1, 1, "name_5", true, true, "rating_5", true),
+            };
+            
+            //1.8) Update TableDB
+            myTableUpdate.UpdateItemListToDatabase();
+
+            //1.9) Read myTable3
+            goal_practice_Table myTable3 = new goal_practice_Table();
+            myTable3.ReadItemListFromDatabase();
+
+
+            //1.10) Compare tables.itemLists (myTableUpdate == myTable3)
+            if (!TestDBI_T_goal_practice_CompareLists(myTableUpdate.itemList, myTable3.itemList))
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as the update table");
+                return iResult;
+            }
+
+
+            Console.WriteLine("DONE: TestDBI_T_goal_practice_AutoCheck_Update()");
+            return iResult;
+        }
+
+
 
         /// <summary>
         /// TestDBI_T_goal_practice_CompareLists --

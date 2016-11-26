@@ -281,7 +281,7 @@ namespace SQLServerDB
                 " specificGoal=@specificGoal," +
                 " specificPractice=@specificPractice," +
                 " genericGoal=@genericGoal," +
-                " genericPractice=@genericPractice," +
+                " genericPractice=@genericPractice" +
                 " WHERE " +
                 " projectId=@projectId";  
 
@@ -290,12 +290,13 @@ namespace SQLServerDB
 
             //WARNING: myCommand.Parameters.AddWithValue("@ID", r.ID); //cannot assign/modify a field having IDENTITY semantics
             myCommand.Parameters.AddWithValue("@notes", r.notes);
+            myCommand.Parameters.AddWithValue("@processArea", r.processArea);
             myCommand.Parameters.AddWithValue("@specificGoal", r.specificGoal);
             myCommand.Parameters.AddWithValue("@specificPractice", r.specificPractice);
             myCommand.Parameters.AddWithValue("@genericGoal", r.genericGoal);
             myCommand.Parameters.AddWithValue("@genericPractice", r.genericPractice);
             myCommand.Parameters.AddWithValue("@projectId", r.projectId);
-            myCommand.Parameters.AddWithValue("@processArea", r.processArea);
+
             myCommand.ExecuteNonQuery();
 
             myConnection.Close();

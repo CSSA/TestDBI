@@ -191,7 +191,7 @@ namespace SQLServerDB
             //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
             string strQuery = "UPDATE  " + theTable +
                 " SET " +
-                " notes=@notes," +
+                " notes=@notes" +
                 " WHERE " +
                 " mappingId=@mappingId";  // <<<---- match on the Primary Key
 
@@ -199,6 +199,7 @@ namespace SQLServerDB
 
             //WARNING: myCommand.Parameters.AddWithValue("@ID", r.ID); //cannot assign/modify a field having IDENTITY semantics
             myCommand.Parameters.AddWithValue("@notes", r.notes);
+            myCommand.Parameters.AddWithValue("@mappingId", r.mappingId);
 
             myCommand.ExecuteNonQuery();
 

@@ -192,11 +192,11 @@ namespace SQLServerDB
             //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
             string strQuery = "UPDATE  " + theTable +
                 " SET " +
-                " username=@username," +
+                
                 " organization=@organization," +
-                 " password=@password," +
+                 " password=@password" +
                  " WHERE " +
-                " projectId=@projectId";  // <<<---- match on the Primary Key
+                " username=@username";  // <<<---- match on the Primary Key
 
             SqlCommand myCommand = new SqlCommand(strQuery, myConnection);
 
@@ -206,6 +206,7 @@ namespace SQLServerDB
             myCommand.Parameters.AddWithValue("@username", r.username);
             myCommand.Parameters.AddWithValue("@organization", r.organization);
             myCommand.Parameters.AddWithValue("@password", r.password);
+
             myCommand.ExecuteNonQuery();
 
             myConnection.Close();

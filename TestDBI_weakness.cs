@@ -384,11 +384,23 @@ namespace TestDBI
         static void TestDBI_T_weakness_AutoCheck()
         {
             Console.WriteLine("START: TestDBI_T_weakness_AutoCheck()");
-            int iResult = TestDBI_T_weakness_AutoCheck_WriteRead();
+            int iResult;
+            
+            iResult = TestDBI_T_weakness_AutoCheck_WriteRead();
             if (iResult == 0)
                 Console.WriteLine("OK: TestDBI_T_weakness_AutoCheck_WriteRead");
             else
                 Console.WriteLine("ERROR: TestDBI_T_weakness_AutoCheck_WriteRead:    iResult=" + iResult);
+
+
+            iResult = TestDBI_T_weakness_AutoCheck_Update();
+            if (iResult == 0)
+                Console.WriteLine("OK: TestDBI_T_weakness_AutoCheck_Update");
+            else
+                Console.WriteLine("ERROR: TestDBI_T_weakness_AutoCheck_Update:    iResult=" + iResult);
+
+            iResult = TestDBI_T_weakness_AutoCheck_Update();
+
 
             Console.WriteLine("DONE: TestDBI_T_weakness_AutoCheck()");
         }
@@ -461,6 +473,109 @@ namespace TestDBI
             Console.WriteLine("DONE: TestDBI_T_weakness_AutoCheck_WriteRead()");
             return iResult;
         }
+
+
+        /// <summary>
+        /// TestDBI_T_weakness_AutoCheck_Update - Update Item List;
+        /// 1.1) Create test data: myTable1;
+        /// 1.2) Clear DBTable;
+        /// 1.3) Write myTable1 to DBTable; 
+        /// 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+        /// 1.5) Read myTable2 from DBTable
+        /// 1.6) Compare tables (myTable1 == myTable2)
+        /// 1.7) Create the update table (myTableUpdate)
+        /// 1.8) Update TableDB
+        /// 1.9) Read myTable3
+        /// 1.10) Compare tables.itemLists(myTableUpdate == myTable3)
+        /// </summary>
+        /// <returns></returns>
+        static int TestDBI_T_weakness_AutoCheck_Update()
+        {
+            const int OK = 0;
+            int iResult = OK;
+            Console.WriteLine("START: TestDBI_T_weakness_AutoCheck_Update()");
+
+            // 1.1) CreateTestData1: myTable1
+            weakness_Table myTable1 = new weakness_Table();
+            myTable1.itemList = new List<weakness>()
+            {
+               // weakness(String val_notes, String val_processArea,            String val_specificGoal, String val_specificPractice,           String val_genericGoal, String val_genericPractice,           int val_projectId)
+                new  weakness("note_1", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 1),
+                new  weakness("note_2", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
+                new  weakness("note_3", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
+                new  weakness("note_4", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
+                new  weakness("note_5", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+            };
+            int iRowsAtStart = myTable1.itemList.Count;
+
+            // 1.2) ClearDBTable
+            myTable1.Clear_Database_Table();
+            int iRowsAfterClear = myTable1.CountRows();
+            if (iRowsAfterClear != 0)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be empty after Clear_Database_Table.  iRowsAfterClear=" + iRowsAfterClear);
+                return iResult;
+            }
+
+            // 1.3) Write myTable1 to DBTable 
+            myTable1.WriteItemListToDatabase();
+
+            // 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+            int iRowsAfterWriteItemListr = myTable1.CountRows();
+            if (iRowsAfterWriteItemListr != iRowsAtStart)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as iRowsAtStart after WriteItemListToDatabase.  iRowsAfterWriteItemListr=" + iRowsAfterWriteItemListr);
+                return iResult;
+            }
+
+            /// 1.5) Read myTable2 from DBTable
+            weakness_Table myTable2 = new weakness_Table();
+            myTable2.ReadItemListFromDatabase();
+
+            /// 1.6) Compare tables (myTable1 == myTable2)
+            if (!TestDBI_T_weakness_CompareLists(myTable1.itemList, myTable2.itemList))
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as test data");
+                return iResult;
+            }
+
+            /// 1.7) Create the update table (myTableUpdate)
+            weakness_Table myTableUpdate = new weakness_Table();
+            myTableUpdate.itemList = new List<weakness>()
+            {
+               // weakness(String val_notes, String val_processArea,            String val_specificGoal, String val_specificPractice,           String val_genericGoal, String val_genericPractice,           int val_projectId)
+                new  weakness("note_1", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 1),
+                new  weakness("note_2", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1-update", 2),
+                new  weakness("note_3", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
+                new  weakness("note_4", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1-update", 4),
+                new  weakness("note_5", "pa_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+            };
+
+
+            //1.8) Update TableDB
+            myTableUpdate.UpdateItemListToDatabase();
+
+            //1.9) Read myTable3
+            weakness_Table myTable3 = new weakness_Table();
+            myTable3.ReadItemListFromDatabase();
+
+
+            //1.10) Compare tables.itemLists (myTableUpdate == myTable3)
+            if (!TestDBI_T_weakness_CompareLists(myTableUpdate.itemList, myTable3.itemList))
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as the update table");
+                return iResult;
+            }
+
+
+            Console.WriteLine("DONE: TestDBI_T_weakness_AutoCheck_Update()");
+            return iResult;
+        }
+
 
         /// <summary>
         /// TestDBI_T_weakness_CompareLists --
