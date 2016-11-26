@@ -34,27 +34,28 @@ namespace SQLServerDB
                 foreach (DataRow dr in dtObj.Rows)
                 {
                     //extract data
-                    int intID = Convert.ToInt32(dr["ID"]);
-                    int intmappingId = Convert.ToInt32(dr["mappingId"]);
+                    int int_ID = Convert.ToInt32(dr["ID"]);
+                    int int_mappingId = Convert.ToInt32(dr["mappingId"]);
                     String strmappingName = dr["mappingName"].ToString();
                     String strmappingPath = dr["mappingPath"].ToString();
-                    String strmappingType = dr["mappingType"].ToString();
+                    String strspecificGoal = dr["specificGoal"].ToString();
+                    String strspecificPractice = dr["specificPractice"].ToString();
+                    String strgenericGoal = dr["genericGoal"].ToString();
+                    String strgenericPractice = dr["genericPractice"].ToString();
                     String strprocessArea = dr["processArea"].ToString();
-                    String strgoal = dr["goal"].ToString();
-                    String strpractice = dr["practice"].ToString();
-                    int intprojectId = Convert.ToInt32(dr["projectId"]);
+                    int int_projectId = Convert.ToInt32(dr["projectId"]);
 
                     //fill the itemList
                     mapping newRec = new mapping();
-                    newRec.ID = intID;
-                    newRec.mappingId = intmappingId;
+                    newRec.ID = int_ID;
+                    newRec.mappingId = int_mappingId;
                     newRec.mappingName = strmappingName;
                     newRec.mappingPath = strmappingPath;
-                    newRec.mappingType = strmappingType;
-                    newRec.processArea = strprocessArea;
-                    newRec.goal = strgoal;
-                    newRec.practice = strpractice;
-                    newRec.projectId = intprojectId;
+                    newRec.specificGoal = strspecificGoal;
+                    newRec.specificPractice = strspecificPractice;
+                    newRec.genericGoal = strgenericGoal;
+                    newRec.genericPractice = strgenericPractice;
+                    newRec.projectId = int_projectId;
 
                     itemList.Add(newRec);
                 }//for
@@ -86,26 +87,29 @@ namespace SQLServerDB
                 foreach (DataRow dr in dtObj.Rows)
                 {
                     //extract data
-                    int intID = Convert.ToInt32(dr["ID"]);
-                    int intmappingId = Convert.ToInt32(dr["mappingId"]);
+                    int int_ID = Convert.ToInt32(dr["ID"]);
+                    int int_mappingId = Convert.ToInt32(dr["mappingId"]);
                     String strmappingName = dr["mappingName"].ToString();
                     String strmappingPath = dr["mappingPath"].ToString();
-                    String strmappingType = dr["mappingType"].ToString();
+                    String strspecificGoal = dr["specificGoal"].ToString();
+                    String strspecificPractice = dr["specificPractice"].ToString();
+                    String strgenericGoal = dr["genericGoal"].ToString();
+                    String strgenericPractice = dr["genericPractice"].ToString();
                     String strprocessArea = dr["processArea"].ToString();
-                    String strgoal = dr["goal"].ToString();
-                    String strpractice = dr["practice"].ToString();
+                    int int_projectId = Convert.ToInt32(dr["projectId"]);
 
                     //fill the itemList
                     mapping newRec = new mapping();
-                    newRec.ID = intID;
-                    newRec.mappingId = intmappingId;
+                    newRec.ID = int_ID;
+                    newRec.mappingId = int_mappingId;
                     newRec.mappingName = strmappingName;
                     newRec.mappingPath = strmappingPath;
-                    newRec.mappingType = strmappingType;
-                    newRec.processArea = strprocessArea;
-                    newRec.goal = strgoal;
-                    newRec.practice = strpractice;
-                    newRec.projectId = projectId;
+
+                    newRec.specificGoal = strspecificGoal;
+                    newRec.specificPractice = strspecificPractice;
+                    newRec.genericGoal = strgenericGoal;
+                    newRec.genericPractice = strgenericPractice;
+                    newRec.projectId = int_projectId;
 
                     itemList.Add(newRec);
                 }//for
@@ -133,26 +137,28 @@ namespace SQLServerDB
                 foreach (DataRow dr in dtObj.Rows)
                 {
                     //extract data
-                    int intID = Convert.ToInt32(dr["ID"]);
-                    int intmappingId = Convert.ToInt32(dr["mappingId"]);
+                    int int_ID = Convert.ToInt32(dr["ID"]);
+                    int int_mappingId = Convert.ToInt32(dr["mappingId"]);
                     String strmappingName = dr["mappingName"].ToString();
                     String strmappingPath = dr["mappingPath"].ToString();
-                    String strmappingType = dr["mappingType"].ToString();
+                    String strspecificGoal = dr["specificGoal"].ToString();
+                    String strspecificPractice = dr["specificPractice"].ToString();
+                    String strgenericGoal = dr["genericGoal"].ToString();
+                    String strgenericPractice = dr["genericPractice"].ToString();
                     String strprocessArea = dr["processArea"].ToString();
-                    String strgoal = dr["goal"].ToString();
-                    String strpractice = dr["practice"].ToString();
+                    int int_projectId = Convert.ToInt32(dr["projectId"]);
 
                     //fill the itemList
                     mapping newRec = new mapping();
-                    newRec.ID = intID;
-                    newRec.mappingId = intmappingId;
+                    newRec.ID = int_ID;
+                    newRec.mappingId = int_mappingId;
                     newRec.mappingName = strmappingName;
                     newRec.mappingPath = strmappingPath;
-                    newRec.mappingType = strmappingType;
-                    newRec.processArea = strprocessArea;
-                    newRec.goal = strgoal;
-                    newRec.practice = strpractice;
-                    newRec.projectId = projectId;
+                    newRec.specificGoal = strspecificGoal;
+                    newRec.specificPractice = strspecificPractice;
+                    newRec.genericGoal = strgenericGoal;
+                    newRec.genericPractice = strgenericPractice;
+                    newRec.projectId = int_projectId;
 
                     itemList.Add(newRec);
                 }//for
@@ -203,9 +209,9 @@ namespace SQLServerDB
 
             //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
             string strQuery = "INSERT INTO  " + theTable +
-                " (mappingId, mappingName, mappingPath, mappingType, processArea, goal, practice, projectId) " +
-                "VALUES " + 
-                "( @mappingId, @mappingName, @mappingPath, @mappingType, @processArea, @goal, @practice, @projectId);";
+                " (mappingId, mappingName, mappingPath, specificGoal, specificPractice, genericGoal, genericPractice, projectId) " +
+                "VALUES " +
+                "( @mappingId, @mappingName, @mappingPath,  @specificGoal, @specificPractice, @genericGoal, @genericPractice, @projectId);";
 
             SqlCommand myCommand = new SqlCommand(strQuery, myConnection);
 
@@ -214,10 +220,14 @@ namespace SQLServerDB
             myCommand.Parameters.AddWithValue("@mappingId", r.mappingId);
             myCommand.Parameters.AddWithValue("@mappingName", r.mappingName);
             myCommand.Parameters.AddWithValue("@mappingPath", r.mappingPath);
-            myCommand.Parameters.AddWithValue("@mappingType", r.mappingType);
-            myCommand.Parameters.AddWithValue("@processArea", r.processArea);
-            myCommand.Parameters.AddWithValue("@goal", r.goal);
-            myCommand.Parameters.AddWithValue("@practice", r.practice);
+
+            myCommand.Parameters.AddWithValue("@specificGoal", r.specificGoal);
+            myCommand.Parameters.AddWithValue("@specificPractice", r.specificPractice);
+
+            myCommand.Parameters.AddWithValue("@genericGoal", r.genericGoal);
+            myCommand.Parameters.AddWithValue("@genericPractice", r.genericPractice);
+
+
             myCommand.Parameters.AddWithValue("@projectId", r.projectId);
 
             myCommand.ExecuteNonQuery();
@@ -267,12 +277,14 @@ namespace SQLServerDB
             //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
             string strQuery = "UPDATE  " + theTable +
                 " SET " +
-                " mappingName=@mappingName," +
-                " mappingPath=@mappingPath," +
-                " mappingType=@mappingType," +
-                " goal=@goal," +
-                " practice=@practice," +
-                " processArea=@processArea" +
+                "mappingName=@mappingName," +
+                "mappingPath=@mappingPath," +
+                "specificGoal=@specificGoal," +
+                "specificPractice=@specificPractice," +
+                "genericGoal=@genericGoal," +
+                "genericPractice=@,genericPractice" +
+                "processArea=@processArea," +
+                "projectId=@projectId," +
                 " WHERE " +
                 " mappingId=@mappingId";  // <<<---- match on the Primary Key
 
@@ -280,15 +292,15 @@ namespace SQLServerDB
 
             //DEPRECATED: myCommand.Parameters.Add(...),  INSTEAD USE myCommand.Parameters.AddWithValue(...)
             //WARNING: myCommand.Parameters.AddWithValue("@ID", r.ID); //cannot assign/modify a field having IDENTITY semantics
-            //myCommand.Parameters.AddWithValue("@mappingId", r.mappingId);  <<---this was the record selection parameter
+            myCommand.Parameters.AddWithValue("@mappingId", r.mappingId);     // <<---this is the record selection parameter
             myCommand.Parameters.AddWithValue("@mappingName", r.mappingName);
             myCommand.Parameters.AddWithValue("@mappingPath", r.mappingPath);
-            myCommand.Parameters.AddWithValue("@mappingType", r.mappingType);
-            myCommand.Parameters.AddWithValue("@processArea", r.processArea);
-            myCommand.Parameters.AddWithValue("@goal", r.goal);
-            myCommand.Parameters.AddWithValue("@practice", r.practice);
-            myCommand.Parameters.AddWithValue("@projectId", r.projectId);
-            myCommand.Parameters.AddWithValue("@mappingId", r.mappingId);
+            myCommand.Parameters.AddWithValue("@specificGoal ", r.specificGoal);
+            myCommand.Parameters.AddWithValue("@specificPractice ", r.specificPractice);
+            myCommand.Parameters.AddWithValue("@genericGoal ", r.genericGoal);
+            myCommand.Parameters.AddWithValue("@genericPractice ", r.genericPractice);
+            myCommand.Parameters.AddWithValue("@processArea ", r.processArea);
+            myCommand.Parameters.AddWithValue("@projectId ", r.projectId);
 
             myCommand.ExecuteNonQuery();
 
@@ -303,6 +315,9 @@ namespace SQLServerDB
         /// </summary>
         public void Clear_Database_Table()
         {
+            if (CountRows() == 0)
+                return;
+
             string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog(" ExecuteSqlNonQuery returned: FALSE; in mapping_Table.cs:Clear_Database_Table. ExecuteSqlNonQuery");

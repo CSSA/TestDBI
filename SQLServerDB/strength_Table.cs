@@ -237,6 +237,9 @@ namespace SQLServerDB
         /// </summary>
         public void Clear_Database_Table()
         {
+            if (CountRows() == 0)
+                return;
+
             string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog(" ExecuteSqlNonQuery returned: FALSE; in strength_Table.cs:Clear_Database_Table. ExecuteSqlNonQuery");
@@ -299,6 +302,7 @@ namespace SQLServerDB
         /// <returns></returns>
         public int CountRows()
         {
+
             SqlConnection myConnection = DBUtils.GetNewSqlConnection();
             if (myConnection == null)
             {

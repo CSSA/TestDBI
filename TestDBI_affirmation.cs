@@ -5,9 +5,9 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-     class TestDBI_affirmation
+    class TestDBI_affirmation
     {
-        
+
         //--------------------------------------------------------------------------------------------
         public static void SelectTest()
         {
@@ -32,6 +32,9 @@ namespace TestDBI
                     break;
                 case 6:
                     TestDBI_T_affirmation_Write_Read_T6();
+                    break;
+                case 10:
+                    TestDBI_T_affirmation_AutoCheck();
                     break;
                 default:
                     Console.WriteLine("that is not a vaild option...");
@@ -336,7 +339,7 @@ namespace TestDBI
 
             Util.pause("examine table content with SSMS");
 
-            Util.pause("before table query by projectID");    
+            Util.pause("before table query by projectID");
             int iProjectCount_404 = myTable.CountRows_By_projectId(404);
             if (iProjectCount_404 != iRowsStart)
                 Console.WriteLine("ERROR.  iProjectCount_404=" + iProjectCount_404 + ". Expected " + iRowsStart);
@@ -383,7 +386,7 @@ namespace TestDBI
         {
             int iCount1 = list1.Count;
             int iCount2 = list2.Count;
-            if (iCount1 != iCount2) 
+            if (iCount1 != iCount2)
                 return -1;
 
             for (int i = 0; i < iCount1; i++)
@@ -398,7 +401,7 @@ namespace TestDBI
         static List<affirmation> make_affirmation_list_1()
         {
             List<affirmation> myList = new List<affirmation>()
-            { 
+            {
              new  affirmation( 1, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 1),
              new  affirmation( 2, "affName_2",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
              new  affirmation( 3, "affName_3",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
@@ -422,6 +425,124 @@ namespace TestDBI
            };
             return myList;
         }//make_affirmation_list_2
+
+
+
+
+        static void TestDBI_T_affirmation_AutoCheck()
+        {
+            Console.WriteLine("START: TestDBI_T_affirmation_AutoCheck()");
+            int iResult = TestDBI_T_affirmation_AutoCheck_WriteRead();
+            if (iResult == 0)
+                Console.WriteLine("OK: TestDBI_T_affirmation_AutoCheck_WriteRead");
+            else
+                Console.WriteLine("ERROR: TestDBI_T_affirmation_AutoCheck_WriteRead:    iResult=" + iResult);
+
+            Console.WriteLine("DONE: TestDBI_T_affirmation_AutoCheck()");
+        }
+
+
+        /// <summary>
+        /// TestDBI_T_affirmation_AutoCheck_WriteRead - Write,Read,Compare Item List;
+        /// 1.1) Create test data: myTable1;
+        /// 1.2) Clear DBTable;
+        /// 1.3) Write myTable1 to DBTable; 
+        /// 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+        /// 1.5) Read myTable2 from DBTable
+        /// 1.6) Compare tables (myTable1 == myTable2)
+        /// </summary>
+        /// <returns></returns>
+        static int TestDBI_T_affirmation_AutoCheck_WriteRead()
+        {
+            const int OK = 0;
+            int iResult = OK;
+            Console.WriteLine("START: TestDBI_T_affirmation_AutoCheck_WriteRead()");
+
+            // 1.1) CreateTestData1: myTable1
+            affirmation_Table myTable1 = new affirmation_Table();
+            myTable1.itemList = new List<affirmation>()
+            {
+                // affirmation(int val_affirmationId, String val_affirmationName, String val_affirmationType, 
+                //String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, String val_processArea, int projectId)
+           new  affirmation( 1, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 1),
+           new  affirmation( 2, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 2),
+           new  affirmation( 3, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 3),
+           new  affirmation( 4, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 4),
+           new  affirmation( 5, "affName_1",  "affType_2", "sg_3", "sp_4", "gg_5", "gp_6", "pa_7", 5),
+            };
+            int iRowsAtStart = myTable1.itemList.Count;
+
+            // 1.2) ClearDBTable
+            myTable1.Clear_Database_Table();
+            int iRowsAfterClear = myTable1.CountRows();
+            if (iRowsAfterClear != 0)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be empty after Clear_Database_Table.  iRowsAfterClear=" + iRowsAfterClear);
+                return iResult;
+            }
+
+            // 1.3) Write myTable1 to DBTable 
+            myTable1.WriteItemListToDatabase();
+
+            // 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+            int iRowsAfterWriteItemListr = myTable1.CountRows();
+            if (iRowsAfterWriteItemListr != iRowsAtStart)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as iRowsAtStart after WriteItemListToDatabase.  iRowsAfterWriteItemListr=" + iRowsAfterWriteItemListr);
+                return iResult;
+            }
+
+            /// 1.5) Read myTable2 from DBTable
+            affirmation_Table myTable2 = new affirmation_Table();
+            myTable2.ReadItemListFromDatabase();
+
+            /// 1.6) Compare tables (myTable1 == myTable2)
+            if (  !TestDBI_T_affirmation_CompareLists(myTable1.itemList, myTable2.itemList) )
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as test data");
+                return iResult;
+            }
+            Console.WriteLine("OK!  DBTable & test data match");
+
+            Console.WriteLine("DONE: TestDBI_T_affirmation_AutoCheck_WriteRead()");
+            return iResult;
+        }
+        
+
+        /// <summary>
+        /// TestDBI_T_affirmation_CompareLists --
+        ///   true if same contents
+        ///   false if there are any differences
+        /// </summary>
+        /// <param name="itemList1"></param>
+        /// <param name="itemList2"></param>
+        /// <returns></returns>
+        static bool TestDBI_T_affirmation_CompareLists(List<affirmation> itemList1, List<affirmation> itemList2)
+        {
+            if (itemList1.Count != itemList2.Count)
+                return false;
+
+            SortedList<int, affirmation> sorteditemList1 = new SortedList<int, affirmation>();
+            foreach (var r in itemList1)
+                sorteditemList1.Add(r.affirmationId, r);//sort by key:  r.affirmationId
+
+            SortedList<int, affirmation> sorteditemList2 = new SortedList<int, affirmation>();
+            foreach (var r in itemList2)
+                sorteditemList2.Add(r.affirmationId, r); //sort by key:  r.affirmationId
+
+            //compare sorted lists for equivalence for each row of data
+            foreach (int iKey in sorteditemList1.Keys)
+            {
+                //method Compare directly compares each field individually
+                if (!sorteditemList1[iKey].Equals(sorteditemList2[iKey]))
+                    return false;
+            }
+            return true;
+        }//TestDBI_T_affirmation_CompareLists
+
 
     }
 }

@@ -222,6 +222,9 @@ namespace SQLServerDB
         /// </summary>
         public void Clear_Database_Table()
         {
+            if (CountRows() == 0)
+                return;
+
             string strCommand = "DELETE FROM " + theTable;
             if (!DBUtils.ExecuteSqlNonQuery(strCommand))
                 LogManager.writeToLog(" ExecuteSqlNonQuery returned: FALSE; in project_Table.cs:Clear_Database_Table. ExecuteSqlNonQuery");

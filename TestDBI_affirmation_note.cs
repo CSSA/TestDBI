@@ -7,7 +7,7 @@ using SQLServerDB;
 
 namespace TestDBI
 {
-     class TestDBI_affirmation_note
+    class TestDBI_affirmation_note
     {
         public static void SelectTest()
         {
@@ -29,6 +29,9 @@ namespace TestDBI
                     break;
                 case 5:
                     TestDBI_T_affirmation_note_T5();
+                    break;
+                case 10:
+                    TestDBI_T_affirmation_note_AutoCheck();
                     break;
                 default:
                     Console.WriteLine("that is not a vaild option...");
@@ -204,5 +207,121 @@ namespace TestDBI
             return myList;
         }//make_affirmation_list_2
 
+
+
+
+
+        static void TestDBI_T_affirmation_note_AutoCheck()
+        {
+            Console.WriteLine("START: TestDBI_T_affirmation_note_AutoCheck()");
+            int iResult = TestDBI_T_affirmation_note_AutoCheck_WriteRead();
+            if (iResult == 0)
+                Console.WriteLine("OK: TestDBI_T_affirmation_note_AutoCheck_WriteRead");
+            else
+                Console.WriteLine("ERROR: TestDBI_T_affirmation_note_AutoCheck_WriteRead:    iResult=" + iResult);
+
+            Console.WriteLine("DONE: TestDBI_T_affirmation_note_AutoCheck()");
+        }
+
+
+        /// <summary>
+        /// TestDBI_T_affirmation_note_AutoCheck_WriteRead - Write,Read,Compare Item List;
+        /// 1.1) Create test data: myTable1;
+        /// 1.2) Clear DBTable;
+        /// 1.3) Write myTable1 to DBTable; 
+        /// 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+        /// 1.5) Read myTable2 from DBTable
+        /// 1.6) Compare tables (myTable1 == myTable2)
+        /// </summary>
+        /// <returns></returns>
+        static int TestDBI_T_affirmation_note_AutoCheck_WriteRead()
+        {
+            const int OK = 0;
+            int iResult = OK;
+            Console.WriteLine("START: TestDBI_T_affirmation_note_AutoCheck_WriteRead()");
+
+            // 1.1) CreateTestData1: myTable1
+            affirmation_note_Table myTable1 = new affirmation_note_Table();
+            myTable1.itemList = new List<affirmation_note>()
+            {
+                // affirmation_note(int val_affirmationId, String val_notes)
+           new  affirmation_note( 1, "aff_notes_1"),
+           new  affirmation_note( 2, "aff_notes_2"),
+           new  affirmation_note( 3, "aff_notes_3"),
+           new  affirmation_note( 4, "aff_notes_4"),
+           new  affirmation_note( 5, "aff_notes_5"),
+            };
+            int iRowsAtStart = myTable1.itemList.Count;
+
+            // 1.2) ClearDBTable
+            myTable1.Clear_Database_Table();
+            int iRowsAfterClear = myTable1.CountRows();
+            if (iRowsAfterClear != 0)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be empty after Clear_Database_Table.  iRowsAfterClear=" + iRowsAfterClear);
+                return iResult;
+            }
+
+            // 1.3) Write myTable1 to DBTable 
+            myTable1.WriteItemListToDatabase();
+
+            // 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+            int iRowsAfterWriteItemListr = myTable1.CountRows();
+            if (iRowsAfterWriteItemListr != iRowsAtStart)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as iRowsAtStart after WriteItemListToDatabase.  iRowsAfterWriteItemListr=" + iRowsAfterWriteItemListr);
+                return iResult;
+            }
+
+            /// 1.5) Read myTable2 from DBTable
+            affirmation_note_Table myTable2 = new affirmation_note_Table();
+            myTable2.ReadItemListFromDatabase();
+
+            /// 1.6) Compare tables (myTable1 == myTable2)
+            if (!TestDBI_T_affirmation_note_CompareLists(myTable1.itemList, myTable2.itemList))
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as test data");
+                return iResult;
+            }
+            Console.WriteLine("OK!  DBTable & test data match");
+
+            Console.WriteLine("DONE: TestDBI_T_affirmation_note_AutoCheck_WriteRead()");
+            return iResult;
+        }
+
+
+        /// <summary>
+        /// TestDBI_T_affirmation_CompareLists --
+        ///   true if same contents
+        ///   false if there are any differences
+        /// </summary>
+        /// <param name="itemList1"></param>
+        /// <param name="itemList2"></param>
+        /// <returns></returns>
+        static bool TestDBI_T_affirmation_note_CompareLists(List<affirmation_note> itemList1, List<affirmation_note> itemList2)
+        {
+            if (itemList1.Count != itemList2.Count)
+                return false;
+
+            SortedList<int, affirmation_note> sorteditemList1 = new SortedList<int, affirmation_note>();
+            foreach (var r in itemList1)
+                sorteditemList1.Add(r.affirmationId, r);//sort by key:  r.affirmationId
+
+            SortedList<int, affirmation_note> sorteditemList2 = new SortedList<int, affirmation_note>();
+            foreach (var r in itemList2)
+                sorteditemList2.Add(r.affirmationId, r); //sort by key:  r.affirmationId
+
+            //compare sorted lists for equivalence for each row of data
+            foreach (int iKey in sorteditemList1.Keys)
+            {
+                //method Compare directly compares each field individually
+                if (!sorteditemList1[iKey].Equals(sorteditemList2[iKey]))
+                    return false;
+            }
+            return true;
+        }//TestDBI_T_affirmation_CompareLists
     }
 }

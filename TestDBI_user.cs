@@ -30,6 +30,10 @@ namespace TestDBI
                 case 5:
                     TestDBI_T_user_T5();
                     break;
+                case 10:
+                    TestDBI_T_user_AutoCheck();
+                    break;
+
                 default:
                     Console.WriteLine("that is not a vaild option...");
                     break;
@@ -376,6 +380,122 @@ namespace TestDBI
            };
             return myList;
         }//make_user_list_2
+
+
+
+
+        static void TestDBI_T_user_AutoCheck()
+        {
+            Console.WriteLine("START: TestDBI_T_user_AutoCheck()");
+            int iResult = TestDBI_T_user_AutoCheck_WriteRead();
+            if (iResult == 0)
+                Console.WriteLine("OK: TestDBI_T_user_AutoCheck_WriteRead");
+            else
+                Console.WriteLine("ERROR: TestDBI_T_user_AutoCheck_WriteRead:    iResult=" + iResult);
+
+            Console.WriteLine("DONE: TestDBI_T_user_AutoCheck()");
+        }
+
+
+        /// <summary>
+        /// TestDBI_T_user_AutoCheck_WriteRead - Write,Read,Compare Item List;
+        /// 1.1) Create test data: myTable1;
+        /// 1.2) Clear DBTable;
+        /// 1.3) Write myTable1 to DBTable; 
+        /// 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+        /// 1.5) Read myTable2 from DBTable
+        /// 1.6) Compare tables (myTable1 == myTable2)
+        /// </summary>
+        /// <returns></returns>
+        static int TestDBI_T_user_AutoCheck_WriteRead()
+        {
+            const int OK = 0;
+            int iResult = OK;
+            Console.WriteLine("START: TestDBI_T_user_AutoCheck_WriteRead()");
+
+            // 1.1) CreateTestData1: myTable1
+            user_Table myTable1 = new user_Table();
+            myTable1.itemList = new List<user>()
+            {
+                // user(String val_username, String val_organization, String val_password)
+           new user("username_1","org_1", "password_1"),
+           new user("username_2","org_1", "password_2"),
+           new user("username_3","org_1", "password_3"),
+           new user("username_4","org_1", "password_4"),
+           new user("username_5","org_1", "password_5"),
+            };
+            int iRowsAtStart = myTable1.itemList.Count;
+
+            // 1.2) ClearDBTable
+            myTable1.Clear_Database_Table();
+            int iRowsAfterClear = myTable1.CountRows();
+            if (iRowsAfterClear != 0)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be empty after Clear_Database_Table.  iRowsAfterClear=" + iRowsAfterClear);
+                return iResult;
+            }
+
+            // 1.3) Write myTable1 to DBTable 
+            myTable1.WriteItemListToDatabase();
+
+            // 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
+            int iRowsAfterWriteItemListr = myTable1.CountRows();
+            if (iRowsAfterWriteItemListr != iRowsAtStart)
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as iRowsAtStart after WriteItemListToDatabase.  iRowsAfterWriteItemListr=" + iRowsAfterWriteItemListr);
+                return iResult;
+            }
+
+            /// 1.5) Read myTable2 from DBTable
+            user_Table myTable2 = new user_Table();
+            myTable2.ReadItemListFromDatabase();
+
+            /// 1.6) Compare tables (myTable1 == myTable2)
+            if (!TestDBI_T_user_CompareLists(myTable1.itemList, myTable2.itemList))
+            {
+                iResult = -1;
+                Console.WriteLine("Error: DBTable should be same as test data");
+                return iResult;
+            }
+            Console.WriteLine("OK!  DBTable & test data match");
+
+            Console.WriteLine("DONE: TestDBI_T_user_AutoCheck_WriteRead()");
+            return iResult;
+        }
+
+        /// <summary>
+        /// TestDBI_T_user_CompareLists --
+        ///   true if same contents
+        ///   false if there are any differences
+        /// </summary>
+        /// <param name="itemList1"></param>
+        /// <param name="itemList2"></param>
+        /// <returns></returns>
+        static bool TestDBI_T_user_CompareLists(List<user> itemList1, List<user> itemList2)
+        {
+            if (itemList1.Count != itemList2.Count)
+                return false;
+
+            SortedList<String, user> sorteditemList1 = new SortedList<String, user>();
+            foreach (var r in itemList1)
+                sorteditemList1.Add(r.username, r);//sort by key:  r.username
+
+            SortedList<String, user> sorteditemList2 = new SortedList<String, user>();
+            foreach (var r in itemList2)
+                sorteditemList2.Add(r.username, r); //sort by key:  r.username
+
+            //compare sorted lists for equivalence for each row of data
+            foreach (var iKey in sorteditemList1.Keys)
+            {
+                //method Compare directly compares each field individually
+                if (!sorteditemList1[iKey].Equals(sorteditemList2[iKey]))
+                    return false;
+            }
+            return true;
+        }//TestDBI_T_user_CompareLists
+
 
     }
 }

@@ -33,7 +33,7 @@ namespace SQLServerDB
                 {
                     //extract data
                     int intID = Convert.ToInt32(dr["ID"]);
-                    String strinterviewQuestions = dr["interviewQuestion"].ToString();
+                    String strinterviewQuestions = dr["interviewQuestions"].ToString();
                     String strquestionNotes = dr["questionNotes"].ToString();
                     int intsessionId = Convert.ToInt32(dr["sessionId"]);
 
