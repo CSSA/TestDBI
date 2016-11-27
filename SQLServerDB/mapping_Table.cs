@@ -55,6 +55,7 @@ namespace SQLServerDB
                     newRec.specificPractice = strspecificPractice;
                     newRec.genericGoal = strgenericGoal;
                     newRec.genericPractice = strgenericPractice;
+                    newRec.processArea = strprocessArea;
                     newRec.projectId = int_projectId;
 
                     itemList.Add(newRec);
@@ -109,6 +110,7 @@ namespace SQLServerDB
                     newRec.specificPractice = strspecificPractice;
                     newRec.genericGoal = strgenericGoal;
                     newRec.genericPractice = strgenericPractice;
+                    newRec.processArea = strprocessArea;
                     newRec.projectId = int_projectId;
 
                     itemList.Add(newRec);
@@ -158,6 +160,7 @@ namespace SQLServerDB
                     newRec.specificPractice = strspecificPractice;
                     newRec.genericGoal = strgenericGoal;
                     newRec.genericPractice = strgenericPractice;
+                    newRec.processArea = strprocessArea;
                     newRec.projectId = int_projectId;
 
                     itemList.Add(newRec);
@@ -209,9 +212,9 @@ namespace SQLServerDB
 
             //WARNING: A field, like "ID", defined with "IDENTITY" semantics, cannot be assigned a value since it Auto-Increments
             string strQuery = "INSERT INTO  " + theTable +
-                " (mappingId, mappingName, mappingPath, specificGoal, specificPractice, genericGoal, genericPractice, projectId) " +
+                " (mappingId, mappingName, mappingPath, specificGoal, specificPractice, genericGoal, genericPractice, processArea, projectId) " +
                 "VALUES " +
-                "( @mappingId, @mappingName, @mappingPath,  @specificGoal, @specificPractice, @genericGoal, @genericPractice, @projectId);";
+                "( @mappingId, @mappingName, @mappingPath,  @specificGoal, @specificPractice, @genericGoal, @genericPractice, @processArea, @projectId);";
 
             SqlCommand myCommand = new SqlCommand(strQuery, myConnection);
 
@@ -227,7 +230,7 @@ namespace SQLServerDB
             myCommand.Parameters.AddWithValue("@genericGoal", r.genericGoal);
             myCommand.Parameters.AddWithValue("@genericPractice", r.genericPractice);
 
-
+            myCommand.Parameters.AddWithValue("@processArea", r.processArea);
             myCommand.Parameters.AddWithValue("@projectId", r.projectId);
 
             myCommand.ExecuteNonQuery();
@@ -282,9 +285,9 @@ namespace SQLServerDB
                 "specificGoal=@specificGoal," +
                 "specificPractice=@specificPractice," +
                 "genericGoal=@genericGoal," +
-                "genericPractice=@,genericPractice" +
+                "genericPractice=@genericPractice," +
                 "processArea=@processArea," +
-                "projectId=@projectId," +
+                "projectId=@projectId" +
                 " WHERE " +
                 " mappingId=@mappingId";  // <<<---- match on the Primary Key
 

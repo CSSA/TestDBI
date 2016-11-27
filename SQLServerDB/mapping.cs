@@ -31,12 +31,13 @@ namespace SQLServerDB
             this.specificPractice= string.Empty;
             this.genericGoal = string.Empty;
             this.genericPractice = string.Empty;
+            this.processArea = string.Empty;
             this.projectId = Unassigned;
     }
 
         // The preferred Constructor, with initial values
         public mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
-                                  String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, int val_projectId)
+                                  String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
         {
             this.ID = Unassigned;               //this field is controlled by the DBMS, i.e., AutoNumbered
             this.mappingId = val_mappingId;
@@ -46,6 +47,7 @@ namespace SQLServerDB
             this.specificPractice = val_specificPractice;
             this.genericGoal = val_genericGoal;
             this.genericPractice = val_genericPractice;
+            this.processArea = val_processArea;
             this.projectId = val_projectId;
         }
         // <summary>

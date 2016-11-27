@@ -229,12 +229,12 @@ namespace TestDBI
             List<mapping> myList = new List<mapping>()
             {
            //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
-           //                       String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, int val_projectId)
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5),
            };
             return myList;
         }//make_mapping_list_1
@@ -244,13 +244,14 @@ namespace TestDBI
         {
             List<mapping> myList = new List<mapping>()
            {
-         //mapping(int val_mappingId, String val_mappingName, String val_mappingPath,   String val_processArea, String val_goal, String val_practice, int val_projectId, bool val_upForDeletion)
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
-           };
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
+            };
             return myList;
         }//make_mapping_list_2
 
@@ -258,11 +259,13 @@ namespace TestDBI
         {
             List<mapping> myList = new List<mapping>()
            {
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
 
            };
             return myList;
@@ -272,11 +275,13 @@ namespace TestDBI
         {
             List<mapping> myList = new List<mapping>()
            {
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
 
            };
             return myList;
@@ -286,11 +291,13 @@ namespace TestDBI
         {
             List<mapping> myList = new List<mapping>()
            {
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
 
            };
             return myList;
@@ -302,11 +309,13 @@ namespace TestDBI
 
             List<mapping> myList = new List<mapping>()
            {
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
             };
             return myList;
         }//make_mapping_list_5_404
@@ -359,13 +368,13 @@ namespace TestDBI
             mapping_Table myTable1 = new mapping_Table();
             myTable1.itemList = new List<mapping>()
             {
-                // mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
-                //                  String val_processArea, String val_goal, String val_practice, int val_projectId, bool val_upForDeletion)
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
             };
             int iRowsAtStart = myTable1.itemList.Count;
 
@@ -434,13 +443,13 @@ namespace TestDBI
             mapping_Table myTable1 = new mapping_Table();
             myTable1.itemList = new List<mapping>()
             {
-                // mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
-                //                  String val_processArea, String val_goal, String val_practice, int val_projectId, bool val_upForDeletion)
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
             };
             int iRowsAtStart = myTable1.itemList.Count;
 
@@ -456,6 +465,7 @@ namespace TestDBI
 
             // 1.3) Write myTable1 to DBTable 
             myTable1.WriteItemListToDatabase();
+            
 
             // 1.4) Get DBTable.CountRows, compare (myTable1.itemList.Count == DBTable.CountRows)
             int iRowsAfterWriteItemListr = myTable1.CountRows();
@@ -482,15 +492,14 @@ namespace TestDBI
             mapping_Table myTableUpdate = new mapping_Table();
             myTableUpdate.itemList = new List<mapping>()
             {
-                // mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
-                //                  String val_processArea, String val_goal, String val_practice, int val_projectId, bool val_upForDeletion)
-              new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", 1),
-              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1-update", 2),
-              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 3),
-              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 4),
-              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", 5),
+           //mapping(int val_mappingId, String val_mappingName, String val_mappingPath, 
+           //             String val_specificGoal, String val_specificPractice, String val_genericGoal, String val_genericPractice, string val_processArea, int val_projectId)
+             new  mapping( 1, "name_1", "path_1","sg_1", "sp_1", "gg_1", "gp_1", "pa_1", 1),
+              new  mapping( 2, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_2-update",  2),
+              new  mapping( 3, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1", "pa_3",  3),
+              new  mapping( 4, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_4-update", 4),
+              new  mapping( 5, "name_1", "path_1", "sg_1", "sp_1", "gg_1", "gp_1",  "pa_5", 5)
             };
-
 
             //1.8) Update TableDB
             myTableUpdate.UpdateItemListToDatabase();
@@ -498,7 +507,6 @@ namespace TestDBI
             //1.9) Read myTable3
             mapping_Table myTable3 = new mapping_Table();
             myTable3.ReadItemListFromDatabase();
-
 
             //1.10) Compare tables.itemLists (myTableUpdate == myTable3)
             if (!TestDBI_T_mapping_CompareLists(myTableUpdate.itemList, myTable3.itemList))
